@@ -2,34 +2,40 @@
 import rclpy
 from rclpy.node import Node
 from tf2_msgs.msg import TFMessage
+from nav_msgs.msg import Odometry
 
-class TfRemapper(Node):
+class FrameRemapper(Node):
     def __init__(self):
-        super().__init__('tf_remapper')
-        self.publisher_ = self.create_publisher(TFMessage, '/tf', 10)
-        self.subscription = self.create_subscription(
-            TFMessage,
-            '/tf_gz',
-            self.tf_callback,
-            10
-        )
-        self.get_logger().info('TF Remapper iniciado! Remapeando smart_camaro/* -> *')
+        super().__init__('frame_remapper')
+        
+        # --- TF ---
+        self.tf_pub = self.create_publisher(TFMessage, '/tf', 10)
+        self.tf_sub = self.create_subscription(TFMessage, '/tf_gz', self.tf_callback, 10)
+        
+        # --- Odometria ---
+        self.odom_pub = self.create_publisher(Odometry, '/odom', 10)
+        self.odom_sub = self.create_subscription(Odometry, '/odom_gz', self.odom_callback, 10)
+        
+        self.get_logger().info('Frame Remapper pronto! Corrigindo TF e Odometria (smart_camaro/* -> *)')
 
     def tf_callback(self, msg):
-        for transform in msg.transforms:
-            # Remove prefixo smart_camaro/ do frame_id
-            if transform.header.frame_id.startswith('smart_camaro/'):
-                transform.header.frame_id = transform.header.frame_id.replace('smart_camaro/', '')
-            
-            # Remove prefixo smart_camaro/ do child_frame_id
-            if transform.child_frame_id.startswith('smart_camaro/'):
-                transform.child_frame_id = transform.child_frame_id.replace('smart_camaro/', '')
-        
-        self.publisher_.publish(msg)
+        for t in msg.transforms:
+            if t.header.frame_id.startswith('smart_camaro/'):
+                t.header.frame_id = t.header.frame_id.replace('smart_camaro/', '')
+            if t.child_frame_id.startswith('smart_camaro/'):
+                t.child_frame_id = t.child_frame_id.replace('smart_camaro/', '')
+        self.tf_pub.publish(msg)
+
+    def odom_callback(self, msg):
+        if msg.header.frame_id.startswith('smart_camaro/'):
+            msg.header.frame_id = msg.header.frame_id.replace('smart_camaro/', '')
+        if msg.child_frame_id.startswith('smart_camaro/'):
+            msg.child_frame_id = msg.child_frame_id.replace('smart_camaro/', '')
+        self.odom_pub.publish(msg)
 
 def main(args=None):
     rclpy.init(args=args)
-    node = TfRemapper()
+    node = FrameRemapper()
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:

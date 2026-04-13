@@ -41,37 +41,45 @@ def generate_launch_description():
         output='screen'
     )
 
-    # === BRIDGE: GAZEBO ↔ ROS 2 ===
+    # === BRIDGE PRINCIPAL: GAZEBO ↔ ROS 2 ===
     bridge = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
         arguments=[
-            # Controle: ROS → Gazebo
             '/model/smart_camaro/cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist',
-            # Odometria: Gazebo → ROS
             '/model/smart_camaro/odometry@nav_msgs/msg/Odometry@gz.msgs.Odometry',
-            # TF do odom→base_link: Gazebo → ROS (remapeado para /tf_gz)
             '/model/smart_camaro/tf@tf2_msgs/msg/TFMessage@gz.msgs.Pose_V',
-            # Joint States: Gazebo → ROS
             '/model/smart_camaro/joint_state@sensor_msgs/msg/JointState@gz.msgs.JointState',
-            # LiDAR: Gazebo → ROS (unidirecional)
             '/lidarA2/scan@sensor_msgs/msg/LaserScan@gz.msgs.LaserScan',
         ],
         remappings=[
             ('/model/smart_camaro/cmd_vel', '/cmd_vel'),
-            ('/model/smart_camaro/odometry', '/odom'),
-            ('/model/smart_camaro/tf', '/tf_gz'),  # <-- Remapeado para evitar conflito
+            ('/model/smart_camaro/odometry', '/odom_gz'),
+            ('/model/smart_camaro/tf', '/tf_gz'),
             ('/model/smart_camaro/joint_state', '/joint_states'),
             ('/lidarA2/scan', '/scan'),
+        ],
+        parameters=[{'use_sim_time': True}],
+        output='screen'
+    )
+
+    # === BRIDGE DO CLOCK: CRÍTICO para use_sim_time funcionar ===
+    # Sem esse nó, todos os outros com use_sim_time ficam sem referência de tempo
+    clock_bridge = Node(
+        package='ros_gz_bridge',
+        executable='parameter_bridge',
+        name='clock_bridge',
+        arguments=[
+            '/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock'
         ],
         output='screen'
     )
 
-    # === TF REMAPPER: Corrige os frames smart_camaro/* -> * ===
-    tf_remapper = Node(
+    # === FRAME REMAPPER (TF + ODOM) ===
+    frame_remapper = Node(
         package='camaro_description',
         executable='tf_remapper.py',
-        name='tf_remapper',
+        name='frame_remapper',
         output='screen',
         parameters=[{'use_sim_time': True}]
     )
@@ -81,5 +89,6 @@ def generate_launch_description():
         robot_state_publisher_node,
         spawn_entity,
         bridge,
-        tf_remapper,
+        clock_bridge,
+        frame_remapper,
     ])
