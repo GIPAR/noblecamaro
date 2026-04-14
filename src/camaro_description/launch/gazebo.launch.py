@@ -11,7 +11,7 @@ def generate_launch_description():
     robot_description = xacro.process_file(xacro_file).toxml()
 
     gz_sim = ExecuteProcess(
-        cmd=['gz', 'sim', '-r', os.path.join(pkg, 'worlds', 'camaro.sdf')],
+        cmd=['gz', 'sim', '-r', os.path.join(pkg, 'worlds', 'BlocoG-Antigo.sdf')],
         output='screen'
     )
 
