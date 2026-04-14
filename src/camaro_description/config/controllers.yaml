@@ -1,0 +1,51 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 50  # Hz - frequência de atualização dos controllers
+
+    # Controllers que serão carregados
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    ackermann_steering_controller:
+      type: ackermann_steering_controller/AckermannSteeringController
+
+ackermann_steering_controller:
+  ros__parameters:
+
+    # --- Juntas do robô ---
+    rear_wheel_names: ['rear_wheel_joint']       # roda traseira virtual (para odometria)
+    front_steer_name: 'front_steer_joint'        # junta de direção virtual
+
+    # --- Geometria do robô ---
+    wheelbase: 0.6          # distância entre eixo dianteiro e traseiro (metros)
+    wheel_radius: 0.1       # raio das rodas (metros)
+
+    # --- Odometria ---
+    odom_frame_id: odom           # frame de odometria
+    base_frame_id: base_link      # frame base do robô
+    enable_odom_tf: true          # publicar transformação odom -> base_link
+    open_loop: false              # usar encoders para odometria (não loop aberto)
+
+    # --- Publicação ---
+    publish_rate: 50.0            # taxa de publicação da odometria (Hz)
+    publish_cmd: true             # publicar comandos enviados
+
+    # --- Limites de velocidade linear ---
+    linear:
+      x:
+        has_velocity_limits: true
+        max_velocity: 10.0        # velocidade máxima (m/s)
+        has_acceleration_limits: true
+        max_acceleration: 2.0     # aceleração máxima (m/s²)
+
+    # --- Limites de velocidade angular ---
+    angular:
+      z:
+        has_velocity_limits: true
+        max_velocity: 3.0         # velocidade angular máxima (rad/s)
+        has_acceleration_limits: true
+        max_acceleration: 3.0     # aceleração angular máxima (rad/s²)
+
+    # --- Covariâncias da odometria ---
+    pose_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
+    twist_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
