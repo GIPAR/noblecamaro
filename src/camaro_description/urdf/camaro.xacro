@@ -184,7 +184,7 @@
     <limit lower="-1.79769e+308" upper="1.79769e+308" effort="100" velocity="100"/>
   </joint>
 
-  <!-- ========== SENSOR LIDAR ========== -->
+  <!-- ========== SENSOR LIDAR (CORRIGIDO: SEM COLISÃO) ========== -->
   <link name="lidarA2">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -195,9 +195,6 @@
       <geometry><cylinder radius="0.05" length="0.02"/></geometry>
       <material name="red"><color rgba="1 0 0 1"/></material>
     </visual>
-    <collision>
-      <geometry><cylinder radius="0.05" length="0.02"/></geometry>
-    </collision>
   </link>
 
   <joint name="lidar_to_chassi" type="fixed">

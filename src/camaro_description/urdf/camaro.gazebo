@@ -5,25 +5,21 @@
   <gazebo reference="base_link">
     <material>Gazebo/Orange</material>
   </gazebo>
-
   <gazebo reference="front_left_wheel_link">
     <material>Gazebo/Gray</material>
     <mu1>1.0</mu1>
     <mu2>1.0</mu2>
   </gazebo>
-
   <gazebo reference="front_right_wheel_link">
     <material>Gazebo/Gray</material>
     <mu1>1.0</mu1>
     <mu2>1.0</mu2>
   </gazebo>
-
   <gazebo reference="rear_left_wheel_link">
     <material>Gazebo/Gray</material>
     <mu1>1.0</mu1>
     <mu2>1.0</mu2>
   </gazebo>
-
   <gazebo reference="rear_right_wheel_link">
     <material>Gazebo/Gray</material>
     <mu1>1.0</mu1>
@@ -49,22 +45,27 @@
       <max_velocity>5</max_velocity>
       <min_acceleration>-3</min_acceleration>
       <max_acceleration>3</max_acceleration>
+      <!-- Frames corretos para o SLAM Toolbox e NAV2 -->
+      <odom_frame>odom</odom_frame>
+      <robot_base_frame>base_link</robot_base_frame>
     </plugin>
   </gazebo>
 
-  <!-- ========== PLUGIN DO LIDAR ========== -->
+  <!-- ========== PLUGIN DO LIDAR (padrão NARA que funciona) ========== -->
   <gazebo reference="lidarA2">
-    <sensor name="lidar" type="gpu_lidar">
+    <sensor type="gpu_lidar" name="lidarA2_sensor">
+      <gz_frame_id>lidarA2</gz_frame_id>
       <pose>0 0 0 0 0 0</pose>
-      <topic>/scan</topic>
+      <topic>/lidarA2/scan</topic>
       <update_rate>40</update_rate>
-      <lidar>
+      <enable_metrics>false</enable_metrics>
+      <ray>
         <scan>
           <horizontal>
             <samples>720</samples>
             <resolution>1</resolution>
-            <min_angle>-1.570796</min_angle>
-            <max_angle>1.570796</max_angle>
+            <min_angle>-3.14159</min_angle>
+            <max_angle>3.14159</max_angle>
           </horizontal>
         </scan>
         <range>
@@ -77,8 +78,8 @@
           <mean>0.0</mean>
           <stddev>0.01</stddev>
         </noise>
-      </lidar>
-      <always_on>1</always_on>
+      </ray>
+      <always_on>true</always_on>
       <visualize>true</visualize>
     </sensor>
   </gazebo>
