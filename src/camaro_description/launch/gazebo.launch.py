@@ -6,13 +6,15 @@ from launch_ros.actions import Node
 import xacro
 
 def generate_launch_description():
-    pkg = get_package_share_directory('camaro_description')
+    pkg = get_package_share_directory('smart_camaro')
     xacro_file = os.path.join(pkg, 'urdf', 'camaro.xacro')
     robot_description = xacro.process_file(xacro_file).toxml()
 
     # === GAZEBO SIM ===
+    models_path = os.path.join(pkg, 'models')
     gz_sim = ExecuteProcess(
         cmd=['gz', 'sim', '-r', os.path.join(pkg, 'worlds', 'museum.world')],
+        additional_env={'GZ_SIM_RESOURCE_PATH': models_path},
         output='screen'
     )
 
@@ -49,14 +51,14 @@ def generate_launch_description():
             '/model/smart_camaro/cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist',
             '/model/smart_camaro/odometry@nav_msgs/msg/Odometry@gz.msgs.Odometry',
             '/model/smart_camaro/tf@tf2_msgs/msg/TFMessage@gz.msgs.Pose_V',
-            '/model/smart_camaro/joint_state@sensor_msgs/msg/JointState@gz.msgs.JointState',
+            '/world/default/model/smart_camaro/joint_state@sensor_msgs/msg/JointState[gz.msgs.Model',
             '/lidarA2/scan@sensor_msgs/msg/LaserScan@gz.msgs.LaserScan',
         ],
         remappings=[
             ('/model/smart_camaro/cmd_vel', '/cmd_vel'),
             ('/model/smart_camaro/odometry', '/odom_gz'),
             ('/model/smart_camaro/tf', '/tf_gz'),
-            ('/model/smart_camaro/joint_state', '/joint_states'),
+            ('/world/default/model/smart_camaro/joint_state', '/joint_states'),
             ('/lidarA2/scan', '/scan'),
         ],
         parameters=[{'use_sim_time': True}],
@@ -77,7 +79,7 @@ def generate_launch_description():
 
     # === FRAME REMAPPER (TF + ODOM) ===
     frame_remapper = Node(
-        package='camaro_description',
+        package='smart_camaro',
         executable='tf_remapper.py',
         name='frame_remapper',
         output='screen',
