@@ -7,7 +7,7 @@ slam_toolbox:
     map_frame: map
 
     # Tópico do lidar
-    scan_topic: /scan
+    scan_topic: /scan_filtered
 
     # Tempo de simulação
     use_sim_time: true
@@ -41,7 +41,7 @@ slam_toolbox:
     ceres_loss_function: None
 
     # Limites de distância para adicionar novo nó no grafo
-    minimum_travel_distance: 0.5
-    minimum_travel_heading: 0.5
+    minimum_travel_distance: 0.1
+    minimum_travel_heading: 0.1
 
     debug_logging: false

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(camaro_description)
+project(smart_camaro)
 
 find_package(ament_cmake REQUIRED)
 find_package(rclpy REQUIRED)
@@ -13,7 +13,7 @@ install(PROGRAMS
 
 # Instala diretórios de recursos
 install(
-  DIRECTORY urdf meshes launch config worlds models
+  DIRECTORY urdf meshes launch config worlds models maps
   DESTINATION share/${PROJECT_NAME}
 )
 
