@@ -6,15 +6,13 @@ from launch_ros.actions import Node
 import xacro
 
 def generate_launch_description():
-    pkg = get_package_share_directory('smart_camaro')
+    pkg = get_package_share_directory('camaro_description')
     xacro_file = os.path.join(pkg, 'urdf', 'camaro.xacro')
     robot_description = xacro.process_file(xacro_file).toxml()
 
     # === GAZEBO SIM ===
-    models_path = os.path.join(pkg, 'models')
     gz_sim = ExecuteProcess(
         cmd=['gz', 'sim', '-r', os.path.join(pkg, 'worlds', 'museum.world')],
-        additional_env={'GZ_SIM_RESOURCE_PATH': models_path},
         output='screen'
     )
 
@@ -79,7 +77,7 @@ def generate_launch_description():
 
     # === FRAME REMAPPER (TF + ODOM) ===
     frame_remapper = Node(
-        package='smart_camaro',
+        package='camaro_description',
         executable='tf_remapper.py',
         name='frame_remapper',
         output='screen',

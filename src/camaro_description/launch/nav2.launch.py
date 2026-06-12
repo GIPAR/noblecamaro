@@ -6,15 +6,16 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
 
 def generate_launch_description():
-    pkg        = get_package_share_directory('smart_camaro')
+    pkg        = get_package_share_directory('camaro_description')
     slam_pkg   = get_package_share_directory('slam_toolbox')
 
     nav2_params   = os.path.join(pkg, 'config', 'nav2_params.yaml')
     slam_params   = os.path.join(pkg, 'config', 'slam_params.yaml')
     filter_params = os.path.join(pkg, 'config', 'laser_filter.yaml')
+    map_file      = os.path.join(pkg, 'maps', 'museum.yaml')
 
     # =========================================================
-    # SLAM TOOLBOX — publica /map e transform map → odom
+    # SLAM TOOLBOX — modo localization, carrega mapa salvo
     # =========================================================
     slam = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -51,7 +52,8 @@ def generate_launch_description():
         package='nav2_controller',
         executable='controller_server',
         output='screen',
-        parameters=params
+        parameters=params,
+        remappings=[('cmd_vel', '6_nav')]
     )
 
     smoother_server = Node(
@@ -72,7 +74,8 @@ def generate_launch_description():
         package='nav2_behaviors',
         executable='behavior_server',
         output='screen',
-        parameters=params
+        parameters=params,
+        remappings=[('cmd_vel', 'cmd_vel_nav')]
     )
 
     bt_navigator = Node(
@@ -88,13 +91,6 @@ def generate_launch_description():
         output='screen',
         parameters=params
     )
-
-    # velocity_smoother = Node(
-    #     package='nav2_velocity_smoother',
-    #     executable='velocity_smoother',
-    #     output='screen',
-    #     parameters=params
-    # )
 
     collision_monitor = Node(
         package='nav2_collision_monitor',
@@ -121,21 +117,21 @@ def generate_launch_description():
                 'behavior_server',
                 'bt_navigator',
                 'waypoint_follower',
-                # 'velocity_smoother',
                 'collision_monitor',
             ]
         }]
     )
 
     # =========================================================
-    # RVIZ2
+    # RVIZ2 — abre já com configuração salva
     # =========================================================
     rviz = Node(
         package='rviz2',
         executable='rviz2',
         name='rviz2',
         output='screen',
-        parameters=[{'use_sim_time': True}]
+        parameters=[{'use_sim_time': True}],
+        arguments=['-d', os.path.join(pkg, 'config', 'nav2.rviz')]
     )
 
     # Nav2 sobe 5s depois do SLAM para evitar conflito de TF
@@ -148,7 +144,6 @@ def generate_launch_description():
             behavior_server,
             bt_navigator,
             waypoint_follower,
-            # velocity_smoother,
             collision_monitor,
             lifecycle_manager,
         ]

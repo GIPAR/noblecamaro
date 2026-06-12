@@ -5,7 +5,7 @@ from launch_ros.actions import Node
 import xacro
 
 def generate_launch_description():
-    pkg = get_package_share_directory('smart_camaro')
+    pkg = get_package_share_directory('camaro_description')
     xacro_file = os.path.join(pkg, 'urdf', 'camaro.xacro')
     robot_description = xacro.process_file(xacro_file).toxml()
 

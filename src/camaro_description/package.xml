@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd"?>
 <package format="3">
-  <name>smart_camaro</name>
+  <name>camaro_description</name>
   <version>1.0.0</version>
   <description>Descrição do robô Camaro para simulação no ROS2</description>
   <maintainer email="camaro@gipar.com">camaro</maintainer>
