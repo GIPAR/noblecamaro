@@ -14,10 +14,10 @@
     </inertial>
     
     <visual>
-      <origin xyz="0 0 0.15" rpy="0 0 -3.1416"/> 
+      <origin xyz="0 0 0.15" rpy="0 0 0"/> 
       
       <geometry>
-        <mesh filename="file:///home/camaro/camaro_sim_ws/install/camaro_description/share/camaro_description/meshes/camaro_model_final.stl"
+        <mesh filename="file:///home/camaro/camaro_sim_ws/install/camaro_description/share/camaro_description/meshes/camaronovo.glb"
               scale="0.0012 0.0012 0.0012"/> 
       </geometry>
     </visual>
@@ -29,6 +29,7 @@
       </geometry>
     </collision>
   </link>
+
 
   <!-- ========== DIREÇÃO DIANTEIRA ESQUERDA ========== -->
   <link name="front_left_wheel_steering_link">
@@ -79,22 +80,22 @@
   </joint>
 
   <!-- ========== RODA DIANTEIRA ESQUERDA ========== -->
-  <link name="front_left_wheel_link">
-    <inertial>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <mass value="1"/>
-      <inertia ixx="0.00303" ixy="0.0" ixz="0.0" iyy="0.00303" iyz="0.0" izz="0.005"/>
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="1.5707 0 0"/> 
-      <geometry><cylinder radius="0.1" length="0.08"/></geometry>
-      <material name="gray"><color rgba="0.5 0.5 0.5 1"/></material>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="1.5707 0 0"/> 
-      <geometry><cylinder radius="0.1" length="0.08"/></geometry>
-    </collision>
-  </link>
+<link name="front_left_wheel_link">
+  <inertial>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <mass value="1"/>
+    <inertia ixx="0.00303" ixy="0.0" ixz="0.0" iyy="0.00303" iyz="0.0" izz="0.005"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="1.5707 0 0"/>
+    <geometry><cylinder radius="0.1" length="0.08"/></geometry>
+    <material name="gray"><color rgba="0.5 0.5 0.5 1"/></material>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="1.5707 0 0"/>
+    <geometry><cylinder radius="0.1" length="0.08"/></geometry>
+  </collision>
+</link>
 
   <joint name="front_left_wheel_joint" type="revolute">
     <parent link="front_left_wheel_steering_link"/>
@@ -200,7 +201,7 @@
   <joint name="lidar_to_chassi" type="fixed">
     <parent link="base_link"/>
     <child link="lidarA2"/>
-    <origin xyz="0.42 0 0.55" rpy="0 0 0"/>
+    <origin xyz="0.42 0 0.32" rpy="0 0 0"/>
   </joint>
 
 </robot>

@@ -17,7 +17,7 @@ ackermann_steering_controller:
     front_steer_name: 'front_steer_joint'        # junta de direção virtual
 
     # --- Geometria do robô ---
-    wheelbase: 0.6          # distância entre eixo dianteiro e traseiro (metros)
+    wheelbase: 0.71          # distância entre eixo dianteiro e traseiro (metros)
     wheel_radius: 0.1       # raio das rodas (metros)
 
     # --- Odometria ---

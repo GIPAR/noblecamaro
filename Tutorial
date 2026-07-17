@@ -1,0 +1,389 @@
+# 🚗 Smart Camaro — Simulação ROS2 + Gazebo Harmonic
+
+> Projeto de simulação de um veículo autônomo com direção Ackermann, LiDAR e SLAM, desenvolvido do zero em ROS2 Jazzy + Gazebo Harmonic.
+
+---
+
+## 🏁 O que é esse projeto?
+
+O Smart Camaro é um robô no formato de um Camaro real, controlado por **direção Ackermann** — o mesmo sistema de direção de carros reais, onde as rodas dianteiras viram em ângulos diferentes para fazer curvas precisas (a roda interna vira mais que a externa).
+
+O objetivo final é ter um carro autônomo capaz de:
+- Se localizar no ambiente
+- Construir um mapa do espaço ao redor
+- Navegar de forma autônoma até um destino
+
+Este repositório documenta toda a jornada de migração do ROS1 (Noetic + Gazebo Classic) para o **ROS2 Jazzy + Gazebo Harmonic**, incluindo todos os problemas enfrentados e como foram resolvidos.
+
+---
+
+## 🗺️ Estado atual do projeto
+
+### ✅ Funcionando
+
+| Componente | Status | Detalhes |
+|---|---|---|
+| Simulação no Gazebo Harmonic | ✅ | Mundo com mapa real (Bloco G) |
+| Direção Ackermann | ✅ | Plugin nativo `gz-sim-ackermann-steering-system` |
+| Controle via `/cmd_vel` | ✅ | Bridge ROS2 ↔ Gazebo funcionando |
+| Odometria `/odom` | ✅ | Frames corretos: `odom → base_link` |
+| LiDAR RPLiDAR A2 | ✅ | Publicando a 25Hz no tópico `/scan` |
+| TF Tree completa | ✅ | `odom → base_link → lidarA2` |
+| Bridge de Clock | ✅ | Sincronização de tempo Gazebo ↔ ROS2 |
+| SLAM Toolbox | ✅ | Mapeamento em tempo real funcionando |
+| RViz2 | ✅ | Visualização do mapa sendo construído |
+
+### 🔧 A melhorar
+
+| Componente | Situação | O que falta |
+|---|---|---|
+| Colisão do chassi | ⚠️ | LiDAR detecta o próprio carro por dentro — precisa ajustar geometria de colisão |
+| Joint States | ⚠️ | Bridge não consegue passar joint states — rodas não animam no RViz |
+| NAV2 | 🔜 | Próximo grande passo — navegação autônoma |
+| Mapa salvo | 🔜 | Salvar o mapa gerado pelo SLAM para usar no NAV2 |
+
+---
+
+## ⚡ Otimizações de performance aplicadas
+
+O Gazebo Harmonic é pesado por natureza. Algumas mudanças foram feitas para deixar a simulação mais leve sem prejudicar o funcionamento do SLAM.
+
+### 1. Sombras desativadas
+
+Por padrão o Gazebo calcula sombras em tempo real — isso consome bastante GPU. Desativamos em dois lugares:
+
+**Na cena** (`museum.world`):
+```xml
+<scene>
+  <shadows>false</shadows>
+</scene>
+```
+
+**Na luz solar** (`museum.world`):
+```xml
+<light name="sun" type="directional">
+  <cast_shadows>false</cast_shadows>
+</light>
+```
+
+> 💡 `<shadows>false</shadows>` desativa o cálculo global de sombras. `<cast_shadows>false</cast_shadows>` desativa especificamente a projeção de sombra pela luz direcional. Os dois precisam estar desativados para o efeito ser completo.
+
+### 2. Física menos agressiva
+
+Reduzimos o `real_time_update_rate` de 1000 para 250 passos por segundo. Para SLAM e navegação isso é mais que suficiente — o robô não precisa de física de alta fidelidade.
+
+```xml
+<physics name="default_physics" default="0" type="ode">
+  <max_step_size>0.004</max_step_size>
+  <real_time_update_rate>250</real_time_update_rate>
+</physics>
+```
+
+### 3. LiDAR com menos amostras e menor taxa
+
+Reduzimos as amostras do LiDAR de 720 para 360 e o update rate de 40Hz para 10Hz. O SLAM Toolbox funciona perfeitamente com 10Hz — e a CPU agradece.
+
+```xml
+<update_rate>10</update_rate>
+<samples>360</samples>
+```
+
+---
+
+## 📁 Estrutura completa do projeto
+
+```
+camaro_sim_ws/
+└── src/
+    └── camaro_description/
+        ├── urdf/
+        │   ├── camaro.xacro
+        │   └── camaro.gazebo
+        ├── launch/
+        │   ├── gazebo.launch.py
+        │   └── display.launch.py
+        ├── worlds/
+        │   └── museum.world
+        ├── config/
+        │   └── slam_params.yaml
+        ├── scripts/
+        │   └── tf_remapper.py
+        ├── meshes/
+        │   └── camaro_model_final.stl
+        ├── models/
+        │   └── bloco_G/
+        │       └── meshes/
+        │           └── BlocoG2Final.stl
+        ├── CMakeLists.txt
+        └── package.xml
+```
+
+---
+
+## 📂 O que é cada pasta e cada arquivo
+
+### 📂 `urdf/` — A planta baixa do robô
+
+Essa pasta contém a descrição física completa do robô. É o primeiro arquivo que o ROS2 lê — sem ele não tem simulação.
+
+#### `camaro.xacro`
+É o arquivo principal do robô. Descreve cada peça física:
+- **Links** → as partes do robô (chassi, rodas, sensor LiDAR)
+- **Joints** → as juntas que conectam as partes (onde a roda se conecta ao chassi, onde o LiDAR fica fixo)
+- **Inércias** → o peso e a distribuição de massa de cada peça (necessário para a física funcionar)
+- **Visuais** → como cada peça aparece na tela (mesh 3D ou formas geométricas simples)
+- **Colisões** → a forma que o simulador usa para calcular colisões físicas
+
+> 💡 O `.xacro` é uma versão do URDF com suporte a macros e variáveis, o que facilita organizar arquivos grandes. O ROS2 converte ele para URDF puro automaticamente.
+
+#### `camaro.gazebo`
+Contém tudo que é específico do Gazebo — separado do XACRO por organização. Aqui ficam:
+- **Plugin Ackermann** → diz ao Gazebo como mover o carro com geometria de carro real
+- **Plugin do LiDAR** → configura o sensor de distância (tipo, alcance, resolução, tópico)
+- **Materiais** → as cores de cada peça no Gazebo
+
+> 💡 Por que separar? Porque o `camaro.xacro` descreve o robô de forma genérica (funciona em qualquer simulador), enquanto o `camaro.gazebo` tem detalhes específicos do Gazebo Harmonic.
+
+---
+
+### 📂 `launch/` — Os scripts que sobem tudo
+
+No ROS2 os arquivos de launch são escritos em Python (diferente do ROS1 que usava XML). Cada arquivo sobe um conjunto de nós (programas) de uma vez.
+
+#### `gazebo.launch.py`
+O launch principal do projeto. Sobe tudo que precisa para a simulação funcionar:
+
+| Nó | O que faz |
+|---|---|
+| `gz_sim` | Abre o Gazebo Harmonic com o mundo |
+| `robot_state_publisher` | Lê o XACRO e publica a descrição do robô + TF estático |
+| `spawn_entity` | Coloca o robô dentro do Gazebo |
+| `bridge` | Traduz tópicos entre Gazebo e ROS2 |
+| `clock_bridge` | Publica o relógio da simulação no ROS2 (crítico para sincronização) |
+| `frame_remapper` | Corrige os nomes dos frames do TF (veja seção de problemas) |
+
+#### `display.launch.py`
+Sobe apenas o RViz2 com o modelo do robô. Serve para checar se o URDF está correto antes de abrir a simulação completa.
+
+---
+
+### 📂 `worlds/` — O ambiente da simulação
+
+#### `museum.world`
+É o arquivo SDF (formato do Gazebo) que descreve o ambiente onde o robô vai rodar. Contém:
+- **Plugins de sistema** → obrigatórios no Gazebo Harmonic (sem eles sensores não funcionam)
+- **Iluminação** → a luz solar do ambiente
+- **Chão** → o plano de colisão do chão
+- **Bloco G** → o modelo 3D do ambiente real onde o robô vai navegar
+
+> ⚠️ **Lição aprendida:** No Gazebo Classic os plugins de sistema eram automáticos. No Gazebo Harmonic eles precisam ser declarados explicitamente no world. Sem o `gz-sim-sensors-system` por exemplo, o LiDAR existe no mundo mas nunca publica nenhum dado.
+
+Os 5 plugins obrigatórios no Harmonic:
+```xml
+<plugin filename="gz-sim-physics-system" .../>           <!-- física -->
+<plugin filename="gz-sim-user-commands-system" .../>     <!-- spawnar robôs -->
+<plugin filename="gz-sim-scene-broadcaster-system" .../>  <!-- renderização -->
+<plugin filename="gz-sim-sensors-system" .../>           <!-- sensores (LiDAR, câmera) -->
+<plugin filename="gz-sim-joint-state-publisher-system" .../> <!-- juntas -->
+```
+
+---
+
+### 📂 `config/` — Configurações dos algoritmos
+
+#### `slam_params.yaml`
+Arquivo de configuração do SLAM Toolbox. Sem ele o SLAM roda com valores padrão que quase nunca batem com setups customizados.
+
+Os parâmetros mais importantes:
+```yaml
+base_frame: base_link    # frame central do robô
+odom_frame: odom         # frame de odometria
+map_frame: map           # frame do mapa gerado
+scan_topic: /scan        # tópico do LiDAR
+use_sim_time: true       # usar tempo da simulação
+transform_timeout: 0.5   # tempo para buscar TF (importante em sim)
+resolution: 0.05         # resolução do mapa (5cm por célula)
+max_laser_range: 20.0    # alcance máximo considerado
+```
+
+> 💡 Por que isso importa? O SLAM Toolbox cruza o scan do LiDAR com a odometria usando os nomes dos frames. Se um parâmetro não bater com o que está na TF Tree, o mapeamento falha silenciosamente.
+
+---
+
+### 📂 `scripts/` — Nós Python customizados
+
+#### `tf_remapper.py`
+Este foi um dos arquivos mais importantes criados no projeto. É um nó Python que resolve um problema específico do plugin Ackermann do Gazebo Harmonic.
+
+**O problema:**
+O plugin publicava o TF com nomes prefixados:
+```
+frame_id: smart_camaro/odom
+child_frame_id: smart_camaro/base_link
+```
+
+O SLAM Toolbox procurava por:
+```
+frame_id: odom
+child_frame_id: base_link
+```
+
+Resultado: `Failed to compute odom pose` infinito — o SLAM não conseguia achar o robô no mapa.
+
+**A solução:**
+O `tf_remapper.py` escuta o `/tf_gz` (com nomes errados) e republica no `/tf` com os nomes corretos, removendo o prefixo `smart_camaro/`:
+
+```python
+transform.header.frame_id = transform.header.frame_id.replace('smart_camaro/', '')
+transform.child_frame_id = transform.child_frame_id.replace('smart_camaro/', '')
+```
+
+Também corrige a mensagem do `/odom` pelo mesmo motivo — o SLAM valida os frame IDs tanto no TF quanto na mensagem de odometria.
+
+---
+
+### 📂 `meshes/` — Os modelos 3D
+
+#### `camaro_model_final.stl`
+O modelo 3D do Camaro em formato STL, preparado no Blender. É usado como visual do robô no Gazebo e no RViz.
+
+> 💡 No ROS2 + Gazebo Harmonic o caminho para a mesh precisa ser absoluto com `file://` — o `package://` do ROS1 não funciona da mesma forma.
+
+---
+
+### 📂 `models/` — Modelos do ambiente
+
+#### `bloco_G/meshes/BlocoG2Final.stl`
+O modelo 3D do Bloco G — o ambiente real onde o robô vai navegar e mapear. Foi importado como modelo estático no `museum.world`.
+
+---
+
+### `CMakeLists.txt` — O manual de instalação do pacote
+
+Diz ao ROS2 onde estão os arquivos do pacote para ele encontrar na hora de rodar. No ROS2 usa `ament_cmake` (no ROS1 era `catkin`).
+
+Precisa declarar explicitamente cada pasta que deve ser instalada:
+```cmake
+install(DIRECTORY urdf launch worlds config scripts meshes models
+  DESTINATION share/${PROJECT_NAME})
+```
+
+---
+
+### `package.xml` — O RG do pacote
+
+Identifica o pacote e lista todas as dependências. Quem precisar rodar esse projeto sabe exatamente o que instalar.
+
+---
+
+## 🧠 Conceitos aprendidos na prática
+
+### O que é a TF Tree?
+
+TF significa Transform — é o sistema do ROS2 que sabe onde cada parte do robô está no espaço em todo momento.
+
+A TF Tree do Smart Camaro:
+
+```
+odom
+  └── base_link
+        └── lidarA2
+```
+
+- `odom` → ponto fixo no chão onde o robô começou. A odometria mede o quanto o robô se afastou daqui.
+- `base_link` → centro do carro. Tudo é medido a partir daqui.
+- `lidarA2` → onde o LiDAR está fisicamente (42cm à frente, 50cm acima do base_link).
+
+**Por que isso é crítico para o SLAM?**
+O SLAM recebe o scan no frame `lidarA2` e precisa saber onde o robô está no frame `odom`. Para isso percorre a árvore: `lidarA2 → base_link → odom`. Se qualquer elo estiver quebrado ou com nome errado, o SLAM falha.
+
+---
+
+### O que é o Bridge?
+
+O Gazebo e o ROS2 falam protocolos diferentes. O bridge é o tradutor entre os dois mundos.
+
+```
+ROS2 /cmd_vel  →  bridge  →  Gazebo /model/smart_camaro/cmd_vel
+Gazebo /model/smart_camaro/odometry  →  bridge  →  ROS2 /odom
+Gazebo /lidarA2/scan  →  bridge  →  ROS2 /scan
+Gazebo /clock  →  clock_bridge  →  ROS2 /clock
+```
+
+> 💡 O bridge do `/clock` é separado e crítico. Sem ele, mesmo com `use_sim_time: true` nos nós, eles não sabem qual é o tempo da simulação e caem para o relógio real do PC — causando um delay de bilhões de segundos no TF.
+
+---
+
+### O que é o SLAM?
+
+SLAM significa **Simultaneous Localization and Mapping** — Localização e Mapeamento Simultâneos. É o algoritmo que permite ao robô:
+
+1. Não saber onde está
+2. Usar o LiDAR para enxergar o ambiente
+3. Usar a odometria para rastrear o movimento
+4. Construir um mapa e se localizar nele **ao mesmo tempo**
+
+O Smart Camaro usa o **SLAM Toolbox** — a implementação padrão do ROS2, robusta e amplamente usada em robótica real.
+
+---
+
+## 🚀 Como rodar
+
+### Pré-requisitos
+- Ubuntu 24.04
+- ROS2 Jazzy
+- Gazebo Harmonic
+- Pacotes: `slam_toolbox`, `ros_gz_bridge`, `ros_gz_sim`, `teleop_twist_keyboard`
+
+### Instalação
+```bash
+cd ~/camaro_sim_ws
+colcon build --symlink-install
+source install/setup.bash
+```
+
+### Execução
+
+> ⚠️ Todos os terminais precisam estar no `ROS_DOMAIN_ID=70` para não conflitar com outros robôs na rede.
+
+**Terminal 1 — Simulação:**
+```bash
+ros2 launch camaro_description gazebo.launch.py
+```
+
+**Terminal 2 — SLAM:**
+```bash
+ros2 launch slam_toolbox online_async_launch.py \
+  use_sim_time:=true \
+  slam_params_file:=/home/camaro/camaro_sim_ws/src/camaro_description/config/slam_params.yaml
+```
+
+**Terminal 3 — RViz2:**
+```bash
+rviz2
+```
+No RViz: `Add → Map → Topic: /map` e mude o `Fixed Frame` para `map`.
+
+**Terminal 4 — Controle:**
+```bash
+ros2 run teleop_twist_keyboard teleop_twist_keyboard \
+  --ros-args --remap cmd_vel:=/cmd_vel
+```
+
+---
+
+## 🔜 Próximos passos
+
+1. **Salvar o mapa** gerado pelo SLAM com `map_saver_cli`
+2. **Configurar o NAV2** para navegação autônoma com o mapa salvo
+3. **Corrigir a colisão do chassi** para o LiDAR não detectar o próprio carro
+4. **Corrigir Joint States** para as rodas animarem no RViz2
+5. **Criar um mundo de teste menor** para validar o NAV2 antes do Bloco G
+
+---
+
+## 👨‍💻 Desenvolvido por
+
+**Pedro Augusto Alves Moreira Té**
+Projeto: Smart Camaro — Migração ROS1 → ROS2
+Plataforma: Ubuntu 24.04 | ROS2 Jazzy | Gazebo Harmonic

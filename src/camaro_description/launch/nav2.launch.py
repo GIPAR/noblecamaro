@@ -53,7 +53,7 @@ def generate_launch_description():
         executable='controller_server',
         output='screen',
         parameters=params,
-        remappings=[('cmd_vel', '6_nav')]
+        remappings=[('cmd_vel', 'cmd_vel_nav')]
     )
 
     smoother_server = Node(
