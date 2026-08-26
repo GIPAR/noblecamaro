@@ -1,0 +1,206 @@
+<?xml version="1.0"?>
+<robot name="smart_camaro" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:include filename="camaro.gazebo" />
+
+  <!-- ========== CHASSI PRINCIPAL ========== -->
+  <link name="base_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5"/>
+      <inertia ixx="0.041666" ixy="0.0" ixz="0.0"
+               iyy="0.108333" iyz="0.0"
+               izz="0.141666"/>
+    </inertial>
+    
+    <visual>
+      <origin xyz="0 0 0.18" rpy="0 0 0"/> 
+      
+      <geometry>
+        <mesh filename="package://camaro_description/meshes/camaronovo.glb"
+              scale="0.0012 0.0012 0.0012"/>
+      </geometry>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0.15" rpy="0 0 0"/> 
+      <geometry>
+        <box size="0.6 0.46 0.15"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <!-- ========== DIREÇÃO DIANTEIRA ESQUERDA ========== -->
+  <link name="front_left_wheel_steering_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.5"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+    <visual>
+       <geometry><box size="0.05 0.05 0.05"/></geometry>
+       <material name="black"><color rgba="0 0 0 1"/></material>
+    </visual>
+    <collision>
+      <geometry><box size="0.05 0.05 0.05"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="front_left_wheel_steering_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="front_left_wheel_steering_link"/>
+    <origin xyz="0.375 0.23 0.10" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-0.6" upper="0.6" effort="25" velocity="1.0"/>
+  </joint>
+
+  <!-- ========== DIREÇÃO DIANTEIRA DIREITA ========== -->
+  <link name="front_right_wheel_steering_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.5"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+    <visual>
+       <geometry><box size="0.05 0.05 0.05"/></geometry>
+       <material name="black"><color rgba="0 0 0 1"/></material>
+    </visual>
+    <collision>
+      <geometry><box size="0.05 0.05 0.05"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="front_right_wheel_steering_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="front_right_wheel_steering_link"/>
+    <origin xyz="0.375 -0.23 0.10" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-0.6" upper="0.6" effort="25" velocity="1.0"/>
+  </joint>
+
+  <!-- ========== RODA DIANTEIRA ESQUERDA ========== -->
+<link name="front_left_wheel_link">
+  <inertial>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <mass value="1"/>
+    <inertia ixx="0.00303" ixy="0.0" ixz="0.0" iyy="0.00303" iyz="0.0" izz="0.005"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="1.5707 0 0"/>
+    <geometry><cylinder radius="0.1" length="0.08"/></geometry>
+    <material name="gray"><color rgba="0.5 0.5 0.5 1"/></material>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="1.5707 0 0"/>
+    <geometry><cylinder radius="0.1" length="0.08"/></geometry>
+  </collision>
+</link>
+
+  <joint name="front_left_wheel_joint" type="revolute">
+    <parent link="front_left_wheel_steering_link"/>
+    <child link="front_left_wheel_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/> 
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.79769e+308" upper="1.79769e+308" effort="100" velocity="100"/>
+  </joint>
+
+  <!-- ========== RODA DIANTEIRA DIREITA ========== -->
+  <link name="front_right_wheel_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1"/>
+      <inertia ixx="0.00303" ixy="0.0" ixz="0.0" iyy="0.00303" iyz="0.0" izz="0.005"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5707 0 0"/> 
+      <geometry><cylinder radius="0.1" length="0.08"/></geometry>
+      <material name="gray"><color rgba="0.5 0.5 0.5 1"/></material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5707 0 0"/> 
+      <geometry><cylinder radius="0.1" length="0.08"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="front_right_wheel_joint" type="revolute">
+    <parent link="front_right_wheel_steering_link"/>
+    <child link="front_right_wheel_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/> 
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.79769e+308" upper="1.79769e+308" effort="100" velocity="100"/>
+  </joint>
+
+  <!-- ========== RODA TRASEIRA ESQUERDA ========== -->
+  <link name="rear_left_wheel_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1"/>
+      <inertia ixx="0.00303" ixy="0.0" ixz="0.0" iyy="0.00303" iyz="0.0" izz="0.005"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5707 0 0"/> 
+      <geometry><cylinder radius="0.1" length="0.08"/></geometry>
+      <material name="gray"><color rgba="0.5 0.5 0.5 1"/></material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5707 0 0"/> 
+      <geometry><cylinder radius="0.1" length="0.08"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="rear_left_wheel_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="rear_left_wheel_link"/>
+    <origin xyz="-0.335 0.23 0.10" rpy="0 0 0"/> 
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.79769e+308" upper="1.79769e+308" effort="100" velocity="100"/>
+  </joint>
+
+  <!-- ========== RODA TRASEIRA DIREITA ========== -->
+  <link name="rear_right_wheel_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1"/>
+      <inertia ixx="0.00303" ixy="0.0" ixz="0.0" iyy="0.00303" iyz="0.0" izz="0.005"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5707 0 0"/> 
+      <geometry><cylinder radius="0.1" length="0.08"/></geometry>
+      <material name="gray"><color rgba="0.5 0.5 0.5 1"/></material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5707 0 0"/> 
+      <geometry><cylinder radius="0.1" length="0.08"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="rear_right_wheel_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="rear_right_wheel_link"/>
+    <!-- JUNTA NEUTRA: Sem rpy aqui! -->
+    <origin xyz="-0.335 -0.23 0.10" rpy="0 0 0"/> 
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.79769e+308" upper="1.79769e+308" effort="100" velocity="100"/>
+  </joint>
+
+  <!-- ========== SENSOR LIDAR (CORRIGIDO: SEM COLISÃO) ========== -->
+  <link name="lidarA2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <geometry><cylinder radius="0.05" length="0.02"/></geometry>
+      <material name="red"><color rgba="1 0 0 1"/></material>
+    </visual>
+  </link>
+
+  <joint name="lidar_to_chassi" type="fixed">
+    <parent link="base_link"/>
+    <child link="lidarA2"/>
+    <origin xyz="0.52 0 0.50" rpy="0 0 0"/>
+  </joint>
+
+</robot>

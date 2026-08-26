@@ -1,0 +1,5 @@
+<library path="ackermann_recovery_plugin">
+<class name="camaro_nav/AckermannRecovery" type="camaro_nav::AckermannRecovery" base_class_type="nav2_core::Behavior">
+<description> Recovery behavior Ackermann para o Smart Camaro. Calcula manobra de saída (ré simples ou 3 pontos) baseado no LIDAR em 360° e na cinemática real do Ackermann. </description>
+</class>
+</library>
