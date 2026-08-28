@@ -1,0 +1,774 @@
+[
+  {
+    "id": "R01",
+    "order": [
+      "A"
+    ],
+    "distance_m": 32.15,
+    "turns": 0,
+    "estimated_time_s": 40.2,
+    "score": 32.15
+  },
+  {
+    "id": "R02",
+    "order": [
+      "B"
+    ],
+    "distance_m": 32.27,
+    "turns": 0,
+    "estimated_time_s": 40.3,
+    "score": 32.27
+  },
+  {
+    "id": "R04",
+    "order": [
+      "D"
+    ],
+    "distance_m": 53.28,
+    "turns": 0,
+    "estimated_time_s": 66.6,
+    "score": 53.28
+  },
+  {
+    "id": "R03",
+    "order": [
+      "C"
+    ],
+    "distance_m": 53.2,
+    "turns": 1,
+    "estimated_time_s": 66.5,
+    "score": 54.7
+  },
+  {
+    "id": "R05",
+    "order": [
+      "A",
+      "B"
+    ],
+    "distance_m": 64.43,
+    "turns": 0,
+    "estimated_time_s": 80.5,
+    "score": 64.43
+  },
+  {
+    "id": "R06",
+    "order": [
+      "B",
+      "A"
+    ],
+    "distance_m": 64.43,
+    "turns": 0,
+    "estimated_time_s": 80.5,
+    "score": 64.43
+  },
+  {
+    "id": "R09",
+    "order": [
+      "A",
+      "D"
+    ],
+    "distance_m": 85.44,
+    "turns": 0,
+    "estimated_time_s": 106.8,
+    "score": 85.44
+  },
+  {
+    "id": "R10",
+    "order": [
+      "D",
+      "A"
+    ],
+    "distance_m": 85.44,
+    "turns": 0,
+    "estimated_time_s": 106.8,
+    "score": 85.44
+  },
+  {
+    "id": "R13",
+    "order": [
+      "B",
+      "D"
+    ],
+    "distance_m": 85.56,
+    "turns": 0,
+    "estimated_time_s": 106.9,
+    "score": 85.56
+  },
+  {
+    "id": "R14",
+    "order": [
+      "D",
+      "B"
+    ],
+    "distance_m": 85.56,
+    "turns": 0,
+    "estimated_time_s": 106.9,
+    "score": 85.56
+  },
+  {
+    "id": "R07",
+    "order": [
+      "A",
+      "C"
+    ],
+    "distance_m": 85.35,
+    "turns": 1,
+    "estimated_time_s": 106.7,
+    "score": 86.85
+  },
+  {
+    "id": "R08",
+    "order": [
+      "C",
+      "A"
+    ],
+    "distance_m": 85.35,
+    "turns": 1,
+    "estimated_time_s": 106.7,
+    "score": 86.85
+  },
+  {
+    "id": "R11",
+    "order": [
+      "B",
+      "C"
+    ],
+    "distance_m": 85.47,
+    "turns": 1,
+    "estimated_time_s": 106.8,
+    "score": 86.97
+  },
+  {
+    "id": "R12",
+    "order": [
+      "C",
+      "B"
+    ],
+    "distance_m": 85.47,
+    "turns": 1,
+    "estimated_time_s": 106.8,
+    "score": 86.97
+  },
+  {
+    "id": "R15",
+    "order": [
+      "C",
+      "D"
+    ],
+    "distance_m": 106.48,
+    "turns": 1,
+    "estimated_time_s": 133.1,
+    "score": 107.98
+  },
+  {
+    "id": "R16",
+    "order": [
+      "D",
+      "C"
+    ],
+    "distance_m": 106.48,
+    "turns": 1,
+    "estimated_time_s": 133.1,
+    "score": 107.98
+  },
+  {
+    "id": "R23",
+    "order": [
+      "A",
+      "B",
+      "D"
+    ],
+    "distance_m": 117.71,
+    "turns": 0,
+    "estimated_time_s": 147.1,
+    "score": 117.71
+  },
+  {
+    "id": "R24",
+    "order": [
+      "A",
+      "D",
+      "B"
+    ],
+    "distance_m": 117.71,
+    "turns": 0,
+    "estimated_time_s": 147.1,
+    "score": 117.71
+  },
+  {
+    "id": "R25",
+    "order": [
+      "B",
+      "A",
+      "D"
+    ],
+    "distance_m": 117.71,
+    "turns": 0,
+    "estimated_time_s": 147.1,
+    "score": 117.71
+  },
+  {
+    "id": "R26",
+    "order": [
+      "B",
+      "D",
+      "A"
+    ],
+    "distance_m": 117.71,
+    "turns": 0,
+    "estimated_time_s": 147.1,
+    "score": 117.71
+  },
+  {
+    "id": "R27",
+    "order": [
+      "D",
+      "A",
+      "B"
+    ],
+    "distance_m": 117.71,
+    "turns": 0,
+    "estimated_time_s": 147.1,
+    "score": 117.71
+  },
+  {
+    "id": "R28",
+    "order": [
+      "D",
+      "B",
+      "A"
+    ],
+    "distance_m": 117.71,
+    "turns": 0,
+    "estimated_time_s": 147.1,
+    "score": 117.71
+  },
+  {
+    "id": "R17",
+    "order": [
+      "A",
+      "B",
+      "C"
+    ],
+    "distance_m": 117.62,
+    "turns": 1,
+    "estimated_time_s": 147.0,
+    "score": 119.12
+  },
+  {
+    "id": "R18",
+    "order": [
+      "A",
+      "C",
+      "B"
+    ],
+    "distance_m": 117.62,
+    "turns": 1,
+    "estimated_time_s": 147.0,
+    "score": 119.12
+  },
+  {
+    "id": "R19",
+    "order": [
+      "B",
+      "A",
+      "C"
+    ],
+    "distance_m": 117.62,
+    "turns": 1,
+    "estimated_time_s": 147.0,
+    "score": 119.12
+  },
+  {
+    "id": "R20",
+    "order": [
+      "B",
+      "C",
+      "A"
+    ],
+    "distance_m": 117.62,
+    "turns": 1,
+    "estimated_time_s": 147.0,
+    "score": 119.12
+  },
+  {
+    "id": "R21",
+    "order": [
+      "C",
+      "A",
+      "B"
+    ],
+    "distance_m": 117.62,
+    "turns": 1,
+    "estimated_time_s": 147.0,
+    "score": 119.12
+  },
+  {
+    "id": "R22",
+    "order": [
+      "C",
+      "B",
+      "A"
+    ],
+    "distance_m": 117.62,
+    "turns": 1,
+    "estimated_time_s": 147.0,
+    "score": 119.12
+  },
+  {
+    "id": "R29",
+    "order": [
+      "A",
+      "C",
+      "D"
+    ],
+    "distance_m": 138.63,
+    "turns": 1,
+    "estimated_time_s": 173.3,
+    "score": 140.13
+  },
+  {
+    "id": "R30",
+    "order": [
+      "A",
+      "D",
+      "C"
+    ],
+    "distance_m": 138.63,
+    "turns": 1,
+    "estimated_time_s": 173.3,
+    "score": 140.13
+  },
+  {
+    "id": "R31",
+    "order": [
+      "C",
+      "A",
+      "D"
+    ],
+    "distance_m": 138.63,
+    "turns": 1,
+    "estimated_time_s": 173.3,
+    "score": 140.13
+  },
+  {
+    "id": "R32",
+    "order": [
+      "C",
+      "D",
+      "A"
+    ],
+    "distance_m": 138.63,
+    "turns": 1,
+    "estimated_time_s": 173.3,
+    "score": 140.13
+  },
+  {
+    "id": "R33",
+    "order": [
+      "D",
+      "A",
+      "C"
+    ],
+    "distance_m": 138.63,
+    "turns": 1,
+    "estimated_time_s": 173.3,
+    "score": 140.13
+  },
+  {
+    "id": "R34",
+    "order": [
+      "D",
+      "C",
+      "A"
+    ],
+    "distance_m": 138.63,
+    "turns": 1,
+    "estimated_time_s": 173.3,
+    "score": 140.13
+  },
+  {
+    "id": "R35",
+    "order": [
+      "B",
+      "C",
+      "D"
+    ],
+    "distance_m": 138.75,
+    "turns": 1,
+    "estimated_time_s": 173.4,
+    "score": 140.25
+  },
+  {
+    "id": "R36",
+    "order": [
+      "B",
+      "D",
+      "C"
+    ],
+    "distance_m": 138.75,
+    "turns": 1,
+    "estimated_time_s": 173.4,
+    "score": 140.25
+  },
+  {
+    "id": "R37",
+    "order": [
+      "C",
+      "B",
+      "D"
+    ],
+    "distance_m": 138.75,
+    "turns": 1,
+    "estimated_time_s": 173.4,
+    "score": 140.25
+  },
+  {
+    "id": "R38",
+    "order": [
+      "C",
+      "D",
+      "B"
+    ],
+    "distance_m": 138.75,
+    "turns": 1,
+    "estimated_time_s": 173.4,
+    "score": 140.25
+  },
+  {
+    "id": "R39",
+    "order": [
+      "D",
+      "B",
+      "C"
+    ],
+    "distance_m": 138.75,
+    "turns": 1,
+    "estimated_time_s": 173.4,
+    "score": 140.25
+  },
+  {
+    "id": "R40",
+    "order": [
+      "D",
+      "C",
+      "B"
+    ],
+    "distance_m": 138.75,
+    "turns": 1,
+    "estimated_time_s": 173.4,
+    "score": 140.25
+  },
+  {
+    "id": "R41",
+    "order": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "distance_m": 170.91,
+    "turns": 1,
+    "estimated_time_s": 213.6,
+    "score": 172.41
+  },
+  {
+    "id": "R42",
+    "order": [
+      "A",
+      "B",
+      "D",
+      "C"
+    ],
+    "distance_m": 170.91,
+    "turns": 1,
+    "estimated_time_s": 213.6,
+    "score": 172.41
+  },
+  {
+    "id": "R43",
+    "order": [
+      "A",
+      "C",
+      "B",
+      "D"
+    ],
+    "distance_m": 170.91,
+    "turns": 1,
+    "estimated_time_s": 213.6,
+    "score": 172.41
+  },
+  {
+    "id": "R44",
+    "order": [
+      "A",
+      "C",
+      "D",
+      "B"
+    ],
+    "distance_m": 170.91,
+    "turns": 1,
+    "estimated_time_s": 213.6,
+    "score": 172.41
+  },
+  {
+    "id": "R45",
+    "order": [
+      "A",
+      "D",
+      "B",
+      "C"
+    ],
+    "distance_m": 170.91,
+    "turns": 1,
+    "estimated_time_s": 213.6,
+    "score": 172.41
+  },
+  {
+    "id": "R46",
+    "order": [
+      "A",
+      "D",
+      "C",
+      "B"
+    ],
+    "distance_m": 170.91,
+    "turns": 1,
+    "estimated_time_s": 213.6,
+    "score": 172.41
+  },
+  {
+    "id": "R47",
+    "order": [
+      "B",
+      "A",
+      "C",
+      "D"
+    ],
+    "distance_m": 170.91,
+    "turns": 1,
+    "estimated_time_s": 213.6,
+    "score": 172.41
+  },
+  {
+    "id": "R48",
+    "order": [
+      "B",
+      "A",
+      "D",
+      "C"
+    ],
+    "distance_m": 170.91,
+    "turns": 1,
+    "estimated_time_s": 213.6,
+    "score": 172.41
+  },
+  {
+    "id": "R49",
+    "order": [
+      "B",
+      "C",
+      "A",
+      "D"
+    ],
+    "distance_m": 170.91,
+    "turns": 1,
+    "estimated_time_s": 213.6,
+    "score": 172.41
+  },
+  {
+    "id": "R50",
+    "order": [
+      "B",
+      "C",
+      "D",
+      "A"
+    ],
+    "distance_m": 170.91,
+    "turns": 1,
+    "estimated_time_s": 213.6,
+    "score": 172.41
+  },
+  {
+    "id": "R51",
+    "order": [
+      "B",
+      "D",
+      "A",
+      "C"
+    ],
+    "distance_m": 170.91,
+    "turns": 1,
+    "estimated_time_s": 213.6,
+    "score": 172.41
+  },
+  {
+    "id": "R52",
+    "order": [
+      "B",
+      "D",
+      "C",
+      "A"
+    ],
+    "distance_m": 170.91,
+    "turns": 1,
+    "estimated_time_s": 213.6,
+    "score": 172.41
+  },
+  {
+    "id": "R53",
+    "order": [
+      "C",
+      "A",
+      "B",
+      "D"
+    ],
+    "distance_m": 170.91,
+    "turns": 1,
+    "estimated_time_s": 213.6,
+    "score": 172.41
+  },
+  {
+    "id": "R54",
+    "order": [
+      "C",
+      "A",
+      "D",
+      "B"
+    ],
+    "distance_m": 170.91,
+    "turns": 1,
+    "estimated_time_s": 213.6,
+    "score": 172.41
+  },
+  {
+    "id": "R55",
+    "order": [
+      "C",
+      "B",
+      "A",
+      "D"
+    ],
+    "distance_m": 170.91,
+    "turns": 1,
+    "estimated_time_s": 213.6,
+    "score": 172.41
+  },
+  {
+    "id": "R56",
+    "order": [
+      "C",
+      "B",
+      "D",
+      "A"
+    ],
+    "distance_m": 170.91,
+    "turns": 1,
+    "estimated_time_s": 213.6,
+    "score": 172.41
+  },
+  {
+    "id": "R57",
+    "order": [
+      "C",
+      "D",
+      "A",
+      "B"
+    ],
+    "distance_m": 170.91,
+    "turns": 1,
+    "estimated_time_s": 213.6,
+    "score": 172.41
+  },
+  {
+    "id": "R58",
+    "order": [
+      "C",
+      "D",
+      "B",
+      "A"
+    ],
+    "distance_m": 170.91,
+    "turns": 1,
+    "estimated_time_s": 213.6,
+    "score": 172.41
+  },
+  {
+    "id": "R59",
+    "order": [
+      "D",
+      "A",
+      "B",
+      "C"
+    ],
+    "distance_m": 170.91,
+    "turns": 1,
+    "estimated_time_s": 213.6,
+    "score": 172.41
+  },
+  {
+    "id": "R60",
+    "order": [
+      "D",
+      "A",
+      "C",
+      "B"
+    ],
+    "distance_m": 170.91,
+    "turns": 1,
+    "estimated_time_s": 213.6,
+    "score": 172.41
+  },
+  {
+    "id": "R61",
+    "order": [
+      "D",
+      "B",
+      "A",
+      "C"
+    ],
+    "distance_m": 170.91,
+    "turns": 1,
+    "estimated_time_s": 213.6,
+    "score": 172.41
+  },
+  {
+    "id": "R62",
+    "order": [
+      "D",
+      "B",
+      "C",
+      "A"
+    ],
+    "distance_m": 170.91,
+    "turns": 1,
+    "estimated_time_s": 213.6,
+    "score": 172.41
+  },
+  {
+    "id": "R63",
+    "order": [
+      "D",
+      "C",
+      "A",
+      "B"
+    ],
+    "distance_m": 170.91,
+    "turns": 1,
+    "estimated_time_s": 213.6,
+    "score": 172.41
+  },
+  {
+    "id": "R64",
+    "order": [
+      "D",
+      "C",
+      "B",
+      "A"
+    ],
+    "distance_m": 170.91,
+    "turns": 1,
+    "estimated_time_s": 213.6,
+    "score": 172.41
+  }
+]
