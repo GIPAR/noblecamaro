@@ -21,6 +21,8 @@ from flask_cors import CORS
 
 import database as db
 import llm as llm_module
+from robot_bridge import start_bridge, robot_state
+from room_map import ROOMS
 from config import FLASK_PORT, FLASK_DEBUG
 
 DASHBOARD_DIR = str(Path(__file__).resolve().parent.parent)
@@ -29,6 +31,7 @@ app = Flask(__name__, static_folder=DASHBOARD_DIR, static_url_path="")
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 db.init_db()
+start_bridge()  # começa a escutar o rosbridge (ROS2/Gazebo) assim que o servidor sobe
 
 _SESSIONS_FILE = Path(__file__).parent / "sessions.json"
 
@@ -59,6 +62,29 @@ ROOM_DISTANCES: dict = {
     "SALA B": 6,
     "SALA D": 7,
 }
+
+# Mapeia o nome usado no sistema ("SALA A") para a chave usada no mundo
+# Gazebo / room_map.py ("A"), onde estão as coordenadas reais dos checkpoints.
+ROOM_NAME_TO_KEY = {
+    "SALA A": "A",
+    "SALA B": "B",
+    "SALA C": "C",
+    "SALA D": "D",
+}
+
+
+def sala_mais_proxima(x: float, y: float) -> str:
+    """Retorna o nome da sala (ex: 'SALA A') cujo checkpoint está mais
+    perto da posição (x, y) informada, usando as coordenadas reais
+    extraídas do SDF em room_map.py."""
+
+    def dist2(nome_sala: str) -> float:
+        key = ROOM_NAME_TO_KEY[nome_sala]
+        rx, ry, _yaw = ROOMS[key]
+        return (rx - x) ** 2 + (ry - y) ** 2
+
+    return min(ROOM_NAME_TO_KEY, key=dist2)
+
 
 _delivery_lock = threading.Lock()
 _delivery_running = False
@@ -306,6 +332,19 @@ def update_telemetry():
     filtered = {k: v for k, v in data.items() if k in allowed}
     db.update_telemetry(filtered)
     return jsonify({"ok": True})
+
+
+@app.route("/api/robot/status", methods=["GET"])
+def robot_status():
+    """Posição atual real do robô (vinda do ROS2/Gazebo via rosbridge) e a
+    sala mais próxima dela, calculada com as coordenadas reais do mapa."""
+    x, y = robot_state["x"], robot_state["y"]
+    return jsonify({
+        "x": x,
+        "y": y,
+        "conectado": robot_state["connected"],
+        "sala_mais_proxima": sala_mais_proxima(x, y),
+    })
 
 
 @app.route("/api/chat", methods=["POST"])
