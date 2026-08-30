@@ -1,0 +1,164 @@
+Panels:
+  - Class: rviz_common/Displays
+    Help Height: 70
+    Name: Displays
+    Property Tree Widget:
+      Expanded:
+        - /Global Options1
+        - /Status1
+        - /Robô A (camaro_a)1
+        - /Robô B (camaro_b)1
+        - /Robô C (camaro_c)1
+      Splitter Ratio: 0.5
+    Tree Height: 70
+  - Class: rviz_common/Views
+    Expanded:
+      - /Current View1
+    Name: Views
+    Splitter Ratio: 0.5
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Alpha: 0.5
+      Cell Size: 1
+      Class: rviz_default_plugins/Grid
+      Color: 160; 160; 164
+      Enabled: true
+      Name: Grid
+      Plane: XY
+      Plane Cell Count: 20
+      Reference Frame: <Fixed Frame>
+      Value: true
+    - Class: rviz_default_plugins/TF
+      Enabled: true
+      Frame Timeout: 15
+      Frames:
+        All Frames Enabled: true
+      Marker Scale: 0.5
+      Name: TF Tree
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+      Value: true
+    # ==================== ROBÔ A (VERMELHO) ====================
+    - Class: rviz_default_plugins/RobotModel
+      Description File: ""
+      Description Source: Topic
+      Description Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /camaro_a/robot_description
+      Enabled: true
+      Name: "Modelo — Robô A (/camaro_a)"
+      Value: true
+    - Alpha: 1
+      Autoscale Color Bounds: true
+      Class: rviz_default_plugins/LaserScan
+      Color: 255; 40; 40
+      Color Transformer: FlatColor
+      Decay Time: 0
+      Enabled: true
+      Name: "Laser LiDAR — Robô A (Vermelho)"
+      Position Transformer: XYZ
+      Selectable: true
+      Size (Pixels): 5
+      Size (m): 0.05
+      Style: Flat Squares
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /camaro_a/scan
+      Value: true
+    # ==================== ROBÔ B (AZUL) ====================
+    - Class: rviz_default_plugins/RobotModel
+      Description File: ""
+      Description Source: Topic
+      Description Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /camaro_b/robot_description
+      Enabled: true
+      Name: "Modelo — Robô B (/camaro_b)"
+      Value: true
+    - Alpha: 1
+      Autoscale Color Bounds: true
+      Class: rviz_default_plugins/LaserScan
+      Color: 0; 150; 255
+      Color Transformer: FlatColor
+      Decay Time: 0
+      Enabled: true
+      Name: "Laser LiDAR — Robô B (Azul)"
+      Position Transformer: XYZ
+      Selectable: true
+      Size (Pixels): 5
+      Size (m): 0.05
+      Style: Flat Squares
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /camaro_b/scan
+      Value: true
+    # ==================== ROBÔ C (VERDE) ====================
+    - Class: rviz_default_plugins/RobotModel
+      Description File: ""
+      Description Source: Topic
+      Description Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /camaro_c/robot_description
+      Enabled: true
+      Name: "Modelo — Robô C (/camaro_c)"
+      Value: true
+    - Alpha: 1
+      Autoscale Color Bounds: true
+      Class: rviz_default_plugins/LaserScan
+      Color: 40; 220; 80
+      Color Transformer: FlatColor
+      Decay Time: 0
+      Enabled: true
+      Name: "Laser LiDAR — Robô C (Verde)"
+      Position Transformer: XYZ
+      Selectable: true
+      Size (Pixels): 5
+      Size (m): 0.05
+      Style: Flat Squares
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /camaro_c/scan
+      Value: true
+  Enabled: true
+  Global Options:
+    Background Color: 48; 48; 48
+    Fixed Frame: world
+    Frame Rate: 30
+  Name: Default Scene
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Distance: 12.0
+      Enable Stereo Rendering:
+        Stereo Eye Separation: 0.05999999865889549
+        Stereo Focal Length: 1
+        Swap Stereo Eyes: false
+        Value: false
+      Focal Point:
+        X: 0
+        Y: 0
+        Z: 0
+      Name: Current View
+      Pitch: 0.785398
+      Value: Orbit (rviz)
+      Yaw: 0.785398

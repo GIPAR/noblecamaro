@@ -150,8 +150,14 @@ Isso vai:
 
 | Argumento | Padrão | O que faz |
 |---|---|---|
-| `robot_names:=` | `smart_camaro_1,smart_camaro_2` | Lista de nomes separados por vírgula |
+| `robot_names:=` | `camaro_a,camaro_b,camaro_c` | Lista de nomes separados por vírgula |
 | `world:=` | `corridor_rooms` | Mapa do Gazebo |
+| `rviz:=` | `true` | Abre o RViz2 pré-configurado com 3 robôs em cores diferentes |
+
+> 🎨 **RViz2 com Cores Diferentes:** O RViz2 abre automaticamente exibindo cada robô com cores distintas no LiDAR:
+> - 🔴 **Robô A (`/camaro_a`):** Laser Vermelho
+> - 🔵 **Robô B (`/camaro_b`):** Laser Azul
+> - 🟢 **Robô C (`/camaro_c`):** Laser Verde
 
 ### 5.2 — Controlar cada robô separadamente
 
@@ -168,7 +174,24 @@ ros2 run camaro_description camaro_teleop.py --ros-args -r __ns:=/camaro_b
 ros2 run camaro_description camaro_teleop.py --ros-args -r __ns:=/camaro_c
 ```
 
-### 5.3 — Ver todos os tópicos criados
+### 5.3 — Resetar a Posição do Robô (Teleportar para a Base)
+
+Se o robô capotar ou ficar preso durante os testes, você não precisa reiniciar o Gazebo! Basta rodar:
+
+```bash
+# Resetar o robô padrão para a base (0, 0, 0.1)
+ros2 launch camaro_description reset_robot.launch.py
+
+# Ou resetar um robô específico em multi-simulação:
+ros2 launch camaro_description reset_robot.launch.py robot_name:=camaro_a x:=0.0 y:=0.0
+```
+
+Você também pode usar via script direto:
+```bash
+ros2 run camaro_description reset_robot.py --robot camaro_b --x 0.0 --y 2.0
+```
+
+### 5.4 — Ver todos os tópicos criados
 
 ```bash
 ros2 topic list

@@ -87,10 +87,29 @@ ros2 launch camaro_description nav2.launch.py slam:=true
 
 ---
 
+### `reset_robot.launch.py` — Resetar Posição do Robô 🔄
+
+Teleporta um robô de volta para a posição inicial (ou personalizada) no Gazebo sem reiniciar o simulador.
+
+```bash
+ros2 launch camaro_description reset_robot.launch.py robot_name:=camaro_a x:=0.0 y:=0.0
+```
+
+**Argumentos:**
+
+| Argumento | Padrão | Descrição |
+|---|---|---|
+| `robot_name:=` | `smart_camaro` | Nome do robô a ser resetado |
+| `world:=` | `corridor_rooms` | Nome do mundo no Gazebo |
+| `x:=` `y:=` `z:=` | `0.0 0.0 0.1` | Posição de destino |
+
+---
+
 ## 🔁 Fluxo típico de uso
 
 ```
 Terminal 1: gazebo.launch.py      ← Gazebo + spawn do robô
 Terminal 2: camaro_teleop.py      ← Controle manual
 Terminal 3: nav2.launch.py        ← SLAM ou Navegação
+(Terminal 4: reset_robot.launch.py se o robô capotar/travar)
 ```
