@@ -1,0 +1,29 @@
+slam_toolbox:
+  ros__parameters:
+    # Frame names (CRÍTICO!)
+    odom_frame: odom
+    map_frame: map
+    base_frame: base_link
+    scan_topic: /scan
+    use_sim_time: true
+    
+    # Modo: mapping (criar mapa) ou localization (usar mapa existente)
+    mode: mapping
+    
+    # Configurações do LiDAR
+    max_laser_range: 30.0      # Seu LiDAR vai até 30m
+    resolution: 0.05           # 5cm por pixel (bom equilíbrio)
+    
+    # Parâmetros do mapper
+    map_update_interval: 1.0   # Atualiza o mapa a cada 1 segundo
+    update_map_frequency: 1.0  # Frequência de atualização
+    
+    # Solver (otimização)
+    solver_plugin: solver_plugins::CeresSolver
+    ceres_linear_solver: SPARSE_NORMAL_CHOLESKY
+    ceres_preconditioner: SCHUR_JACOBI
+    ceres_trust_strategy: LEVENBERG_MARQUARDT
+    
+    # Publicação
+    publish_map_tf: true
+    use_map_saver: true

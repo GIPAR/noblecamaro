@@ -1,0 +1,14 @@
+scan_to_scan_filter_chain:
+  ros__parameters:
+    filter1:
+      name: footprint_filter
+      type: laser_filters/LaserScanBoxFilter
+      params:
+        box_frame: lidarA2
+        min_x: -1.00
+        max_x: 0.25
+        min_y: -0.60
+        max_y: 0.60
+        min_z: -0.60
+        max_z: 0.30
+        invert: false

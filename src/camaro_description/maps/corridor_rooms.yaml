@@ -1,0 +1,7 @@
+image: corridor_rooms.pgm
+mode: trinary
+resolution: 0.050
+origin: [-7.953, -10.235, 0]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.196

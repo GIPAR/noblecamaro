@@ -1,0 +1,47 @@
+slam_toolbox:
+  ros__parameters:
+
+    # Frames
+    base_frame: base_link
+    odom_frame: odom
+    map_frame: map
+
+    # Tópico do lidar
+    scan_topic: /scan_filtered
+
+    # Tempo de simulação
+    use_sim_time: true
+
+    # Modo: mapeamento online em tempo real
+    mode: mapping
+
+    # Resolução do mapa (metros por célula)
+    resolution: 0.05
+
+    # Tamanho máximo do mapa
+    max_laser_range: 20.0
+
+    # Tolerância de tempo para busca de TF (importante para sim time)
+    transform_timeout: 0.5
+    tf_buffer_duration: 30.0
+
+    # Frequência de publicação do mapa
+    map_update_interval: 5.0
+
+    # Não carregar mapa anterior
+    use_scan_matching: true
+    use_scan_barycenter: true
+
+    # Parâmetros do solver
+    solver_plugin: solver_plugins::CeresSolver
+    ceres_linear_solver: SPARSE_NORMAL_CHOLESKY
+    ceres_preconditioner: SCHUR_JACOBI
+    ceres_trust_strategy: LEVENBERG_MARQUARDT
+    ceres_dogleg_type: TRADITIONAL_DOGLEG
+    ceres_loss_function: None
+
+    # Limites de distância para adicionar novo nó no grafo
+    minimum_travel_distance: 0.1
+    minimum_travel_heading: 0.1
+
+    debug_logging: false
