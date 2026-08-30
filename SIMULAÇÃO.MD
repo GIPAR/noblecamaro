@@ -207,18 +207,35 @@ Você verá tópicos como:
 ...
 ```
 
-### 5.4 — Adicionar o Camaro na simulação de um amigo
+### 5.5 — Como adicionar o robô de um amigo (outro modelo/pacote) na sua simulação 🤝
 
-Se a simulação do seu amigo já estiver rodando com o Gazebo aberto, ele pode spawnar o Camaro no mundo dele com:
+Se o seu amigo criou um robô próprio (ex: `meu_robo_description`), ele pode colocar o robô dele para rodar junto com o seu Camaro no mesmo mundo!
 
+#### Passo 1: Colocar a pasta do robô no workspace
+Copie a pasta do pacote dele para dentro de `noblecamaro-main/src/` e recompile:
 ```bash
-ros2 launch camaro_description spawn_robot.launch.py \
-    robot_name:=smart_camaro \
-    robot_namespace:=smart_camaro \
-    x:=2.0 y:=0.0 z:=0.1
+cd ~/noblecamaro-main
+colcon build --symlink-install
+source install/setup.bash
 ```
 
-> 📦 O seu amigo só precisa ter o pacote `camaro_description` compilado no workspace dele.
+#### Passo 2: Spawnar o robô dele no seu mundo
+Com a sua simulação rodando, ele roda em outro terminal indicando a pasta (`urdf_package`) e o arquivo da carcaça 3D (`urdf_file`):
+```bash
+ros2 launch camaro_description spawn_robot.launch.py \
+    robot_name:=robo_amigo \
+    robot_namespace:=robo_amigo \
+    urdf_package:=meu_robo_description \
+    urdf_file:=urdf/robo.xacro \
+    x:=2.0 y:=0.0
+```
+
+#### Passo 3: Como funciona o controle (`cmd_vel`) e sensores
+Cada robô ganha seu próprio canal de controle totalmente isolado:
+- **Seu Camaro:** responde no tópico `/smart_camaro/cmd_vel`
+- **Robô do amigo:** responde no tópico `/robo_amigo/cmd_vel`
+
+Dessa forma, você controla o Camaro em um terminal e ele controla o robô dele em outro terminal no mesmo mundo do Gazebo simultaneamente!
 
 ---
 

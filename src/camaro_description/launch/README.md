@@ -43,11 +43,15 @@ ros2 launch camaro_description spawn_robot.launch.py \
 |---|---|---|
 | `robot_name:=` | `smart_camaro` | Nome do modelo no Gazebo (deve ser único) |
 | `robot_namespace:=` | `smart_camaro` | Namespace dos tópicos ROS 2 (deve ser único) |
+| `urdf_package:=` | `camaro_description` | Pacote ROS 2 onde fica o modelo (permite robôs de amigos) |
+| `urdf_file:=` | `urdf/camaro.xacro` | Caminho do arquivo Xacro/URDF (carcaça) dentro do pacote |
 | `x:=` `y:=` `z:=` | `0 0 0` | Posição de spawn no mundo |
+
+> 💡 **Spawnar o robô de um amigo:** Se ele colocar a pasta do pacote dele (`meu_robo_description`) em `src/` e compilar, ele pode spawnar o robô dele no seu mundo passando `urdf_package:=meu_robo_description urdf_file:=urdf/robo.xacro`.
 
 Este launch cria automaticamente:
 - `robot_state_publisher` com o prefixo de TF correto
-- `ros_gz_bridge` para traduzir os tópicos Gazebo → ROS 2
+- `ros_gz_bridge` para traduzir os tópicos Gazebo → ROS 2 (`/nome_do_robo/cmd_vel`, `/nome_do_robo/scan`, etc.)
 
 ---
 
