@@ -11,6 +11,9 @@ def launch_setup(context, *args, **kwargs):
     # Obtém a lista de robôs como string e divide por vírgula
     robot_names_str = context.perform_substitution(LaunchConfiguration('robot_names'))
     names = [name.strip() for name in robot_names_str.split(',') if name.strip()]
+    
+    urdf_pkg_val = context.perform_substitution(LaunchConfiguration('urdf_package'))
+    urdf_file_val = context.perform_substitution(LaunchConfiguration('urdf_file'))
 
     pkg = get_package_share_directory('camaro_description')
     
@@ -31,6 +34,8 @@ def launch_setup(context, *args, **kwargs):
                     'x': '0.0',
                     'y': str(y_pos),
                     'z': '0.1',
+                    'urdf_package': urdf_pkg_val,
+                    'urdf_file': urdf_file_val,
                 }.items()
             )
         )
@@ -58,6 +63,19 @@ def generate_launch_description():
         'rviz',
         default_value='true',
         description='Abrir RViz2 pré-configurado para múltiplos robôs (true/false)'
+    )
+
+    # Argumentos para personalizar o modelo do robô (permitindo outros robôs)
+    urdf_pkg_arg = DeclareLaunchArgument(
+        'urdf_package',
+        default_value='camaro_description',
+        description='Pacote ROS 2 do modelo do robô (permite spawnar outros robôs)'
+    )
+
+    urdf_file_arg = DeclareLaunchArgument(
+        'urdf_file',
+        default_value='urdf/camaro.xacro',
+        description='Caminho relativo do Xacro/URDF do robô dentro do pacote'
     )
     
     # OpaqueFunction para resolver o caminho completo do mundo e lançar o Gazebo
@@ -106,6 +124,8 @@ def generate_launch_description():
         robot_names_arg,
         world_arg,
         rviz_arg,
+        urdf_pkg_arg,
+        urdf_file_arg,
         gz_sim_opaque,
         clock_bridge,
         rviz_node,

@@ -13,16 +13,28 @@ def launch_setup(context, *args, **kwargs):
     x = context.perform_substitution(LaunchConfiguration('x'))
     y = context.perform_substitution(LaunchConfiguration('y'))
     z = context.perform_substitution(LaunchConfiguration('z'))
+    urdf_package = context.perform_substitution(LaunchConfiguration('urdf_package'))
+    urdf_file_rel = context.perform_substitution(LaunchConfiguration('urdf_file'))
 
-    pkg = get_package_share_directory('camaro_description')
-    xacro_file = os.path.join(pkg, 'urdf', 'camaro.xacro')
-    
-    # Processa o Xacro injetando o prefixo nas juntas e links
+    # Carrega o Xacro do pacote especificado
+    try:
+        pkg = get_package_share_directory(urdf_package)
+        xacro_file = os.path.join(pkg, urdf_file_rel)
+    except Exception as e:
+        print(f"⚠️ Não foi possível encontrar o pacote '{urdf_package}'. Usando 'camaro_description' como fallback: {e}")
+        pkg = get_package_share_directory('camaro_description')
+        xacro_file = os.path.join(pkg, 'urdf', 'camaro.xacro')
+
+    # Processa o Xacro injetando o prefixo nas juntas e links (se suportado pelo xacro)
     prefix = robot_namespace + '/' if robot_namespace else ''
-    robot_description = xacro.process_file(
-        xacro_file,
-        mappings={'prefix': prefix}
-    ).toxml()
+    try:
+        robot_description = xacro.process_file(
+            xacro_file,
+            mappings={'prefix': prefix}
+        ).toxml()
+    except Exception:
+        # Fallback se o xacro do robô externo não usar a variável prefix
+        robot_description = xacro.process_file(xacro_file).toxml()
 
     # === ROBOT STATE PUBLISHER ===
     robot_state_publisher_node = Node(
@@ -52,7 +64,6 @@ def launch_setup(context, *args, **kwargs):
     )
 
     # === BRIDGE PRINCIPAL: GAZEBO ↔ ROS 2 ===
-    # Mapeia os tópicos do modelo do Gazebo para tópicos ROS no namespace do robô
     bridge = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
@@ -88,5 +99,7 @@ def generate_launch_description():
         DeclareLaunchArgument('x', default_value='0.0', description='Posição X de spawn'),
         DeclareLaunchArgument('y', default_value='0.0', description='Posição Y de spawn'),
         DeclareLaunchArgument('z', default_value='0.0', description='Posição Z de spawn'),
+        DeclareLaunchArgument('urdf_package', default_value='camaro_description', description='Pacote ROS 2 onde fica o URDF/Xacro do robô'),
+        DeclareLaunchArgument('urdf_file', default_value='urdf/camaro.xacro', description='Caminho relativo do arquivo .xacro ou .urdf dentro do pacote'),
         OpaqueFunction(function=launch_setup)
     ])
