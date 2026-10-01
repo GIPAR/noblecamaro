@@ -1,6 +1,6 @@
 """
 Coordenadas das salas no mapa (frame 'map'), extraídas diretamente do
-mundo `corridor_rooms.sdf` -- não são chute.
+mundo `corridor_rooms_light.sdf` / `corridor_rooms_high.sdf` -- não são chute.
 
   - BASE   : pose do modelo 'home_base' (disco verde de spawn)
   - DOORS  : centro do vão de cada porta (entre os pares doorwall_a/b de
@@ -24,7 +24,7 @@ import math
 APPROACH_DISTANCE = 0.8
 
 # (x, y, yaw)
-BASE = (2.0, 0.0, 0.0)  # home_base -- yaw é suposição, ver nota acima
+BASE = (-4.0, 0.0, 0.0)  # home_base no meio do lobby, yaw 0 = olhando pro corredor (+x)
 
 DOORS = {
     "A": (11.0, 2.0, 1.5708),

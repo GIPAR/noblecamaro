@@ -1,14 +1,15 @@
 scan_to_scan_filter_chain:
   ros__parameters:
     filter1:
-      name: footprint_filter
-      type: laser_filters/LaserScanBoxFilter
+      name: body_polygon
+      type: laser_filters/LaserScanPolygonFilter
       params:
-        box_frame: lidarA2
-        min_x: -1.00
-        max_x: 0.25
-        min_y: -0.60
-        max_y: 0.60
-        min_z: -0.60
-        max_z: 0.30
-        invert: false
+        # Polígono que contorna a silhueta do robô no frame do LiDAR
+        # LiDAR em x=0.55 (base_link) -> base_link fica em (-0.55, 0)
+        # Malha: x ±0.60, y ±0.33 (em base_link) -> no LiDAR: x -1.15..+0.05
+        # "Saliências" em y=±0.37 na região das rodas dianteiras (x ~ -0.175)
+        # cobrem o esterço máximo (±0.6 rad) das rodas dianteiras
+        polygon_frame: lidarA2
+        polygon: "[[0.05, -0.37], [-0.05, -0.37], [-0.40, -0.37], [-0.60, -0.33], [-1.15, -0.33], [-1.15, 0.33], [-0.60, 0.33], [-0.40, 0.37], [-0.05, 0.37], [0.05, 0.37]]"
+        polygon_padding: 0.05
+        invert: false  # Remove pontos DENTRO do polígono

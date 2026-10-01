@@ -4,40 +4,40 @@
     "order": [
       "A"
     ],
-    "distance_m": 32.15,
+    "distance_m": 50.23,
     "turns": 0,
-    "estimated_time_s": 40.2,
-    "score": 32.15
+    "estimated_time_s": 62.8,
+    "score": 50.23
   },
   {
     "id": "R02",
     "order": [
       "B"
     ],
-    "distance_m": 32.27,
-    "turns": 0,
-    "estimated_time_s": 40.3,
-    "score": 32.27
-  },
-  {
-    "id": "R04",
-    "order": [
-      "D"
-    ],
-    "distance_m": 53.28,
-    "turns": 0,
-    "estimated_time_s": 66.6,
-    "score": 53.28
+    "distance_m": 50.54,
+    "turns": 2,
+    "estimated_time_s": 63.2,
+    "score": 53.54
   },
   {
     "id": "R03",
     "order": [
       "C"
     ],
-    "distance_m": 53.2,
+    "distance_m": 71.29,
     "turns": 1,
-    "estimated_time_s": 66.5,
-    "score": 54.7
+    "estimated_time_s": 89.1,
+    "score": 72.79
+  },
+  {
+    "id": "R04",
+    "order": [
+      "D"
+    ],
+    "distance_m": 71.48,
+    "turns": 2,
+    "estimated_time_s": 89.4,
+    "score": 74.48
   },
   {
     "id": "R05",
@@ -45,10 +45,10 @@
       "A",
       "B"
     ],
-    "distance_m": 64.43,
-    "turns": 0,
-    "estimated_time_s": 80.5,
-    "score": 64.43
+    "distance_m": 100.77,
+    "turns": 2,
+    "estimated_time_s": 126.0,
+    "score": 103.77
   },
   {
     "id": "R06",
@@ -56,54 +56,10 @@
       "B",
       "A"
     ],
-    "distance_m": 64.43,
-    "turns": 0,
-    "estimated_time_s": 80.5,
-    "score": 64.43
-  },
-  {
-    "id": "R09",
-    "order": [
-      "A",
-      "D"
-    ],
-    "distance_m": 85.44,
-    "turns": 0,
-    "estimated_time_s": 106.8,
-    "score": 85.44
-  },
-  {
-    "id": "R10",
-    "order": [
-      "D",
-      "A"
-    ],
-    "distance_m": 85.44,
-    "turns": 0,
-    "estimated_time_s": 106.8,
-    "score": 85.44
-  },
-  {
-    "id": "R13",
-    "order": [
-      "B",
-      "D"
-    ],
-    "distance_m": 85.56,
-    "turns": 0,
-    "estimated_time_s": 106.9,
-    "score": 85.56
-  },
-  {
-    "id": "R14",
-    "order": [
-      "D",
-      "B"
-    ],
-    "distance_m": 85.56,
-    "turns": 0,
-    "estimated_time_s": 106.9,
-    "score": 85.56
+    "distance_m": 100.77,
+    "turns": 2,
+    "estimated_time_s": 126.0,
+    "score": 103.77
   },
   {
     "id": "R07",
@@ -111,10 +67,10 @@
       "A",
       "C"
     ],
-    "distance_m": 85.35,
+    "distance_m": 121.52,
     "turns": 1,
-    "estimated_time_s": 106.7,
-    "score": 86.85
+    "estimated_time_s": 151.9,
+    "score": 123.02
   },
   {
     "id": "R08",
@@ -122,10 +78,32 @@
       "C",
       "A"
     ],
-    "distance_m": 85.35,
+    "distance_m": 121.52,
     "turns": 1,
-    "estimated_time_s": 106.7,
-    "score": 86.85
+    "estimated_time_s": 151.9,
+    "score": 123.02
+  },
+  {
+    "id": "R09",
+    "order": [
+      "A",
+      "D"
+    ],
+    "distance_m": 121.71,
+    "turns": 2,
+    "estimated_time_s": 152.1,
+    "score": 124.71
+  },
+  {
+    "id": "R10",
+    "order": [
+      "D",
+      "A"
+    ],
+    "distance_m": 121.71,
+    "turns": 2,
+    "estimated_time_s": 152.1,
+    "score": 124.71
   },
   {
     "id": "R11",
@@ -133,10 +111,10 @@
       "B",
       "C"
     ],
-    "distance_m": 85.47,
-    "turns": 1,
-    "estimated_time_s": 106.8,
-    "score": 86.97
+    "distance_m": 121.83,
+    "turns": 3,
+    "estimated_time_s": 152.3,
+    "score": 126.33
   },
   {
     "id": "R12",
@@ -144,10 +122,32 @@
       "C",
       "B"
     ],
-    "distance_m": 85.47,
-    "turns": 1,
-    "estimated_time_s": 106.8,
-    "score": 86.97
+    "distance_m": 121.83,
+    "turns": 3,
+    "estimated_time_s": 152.3,
+    "score": 126.33
+  },
+  {
+    "id": "R13",
+    "order": [
+      "B",
+      "D"
+    ],
+    "distance_m": 122.02,
+    "turns": 4,
+    "estimated_time_s": 152.5,
+    "score": 128.02
+  },
+  {
+    "id": "R14",
+    "order": [
+      "D",
+      "B"
+    ],
+    "distance_m": 122.02,
+    "turns": 4,
+    "estimated_time_s": 152.5,
+    "score": 128.02
   },
   {
     "id": "R15",
@@ -155,10 +155,10 @@
       "C",
       "D"
     ],
-    "distance_m": 106.48,
-    "turns": 1,
-    "estimated_time_s": 133.1,
-    "score": 107.98
+    "distance_m": 142.77,
+    "turns": 3,
+    "estimated_time_s": 178.5,
+    "score": 147.27
   },
   {
     "id": "R16",
@@ -166,82 +166,10 @@
       "D",
       "C"
     ],
-    "distance_m": 106.48,
-    "turns": 1,
-    "estimated_time_s": 133.1,
-    "score": 107.98
-  },
-  {
-    "id": "R23",
-    "order": [
-      "A",
-      "B",
-      "D"
-    ],
-    "distance_m": 117.71,
-    "turns": 0,
-    "estimated_time_s": 147.1,
-    "score": 117.71
-  },
-  {
-    "id": "R24",
-    "order": [
-      "A",
-      "D",
-      "B"
-    ],
-    "distance_m": 117.71,
-    "turns": 0,
-    "estimated_time_s": 147.1,
-    "score": 117.71
-  },
-  {
-    "id": "R25",
-    "order": [
-      "B",
-      "A",
-      "D"
-    ],
-    "distance_m": 117.71,
-    "turns": 0,
-    "estimated_time_s": 147.1,
-    "score": 117.71
-  },
-  {
-    "id": "R26",
-    "order": [
-      "B",
-      "D",
-      "A"
-    ],
-    "distance_m": 117.71,
-    "turns": 0,
-    "estimated_time_s": 147.1,
-    "score": 117.71
-  },
-  {
-    "id": "R27",
-    "order": [
-      "D",
-      "A",
-      "B"
-    ],
-    "distance_m": 117.71,
-    "turns": 0,
-    "estimated_time_s": 147.1,
-    "score": 117.71
-  },
-  {
-    "id": "R28",
-    "order": [
-      "D",
-      "B",
-      "A"
-    ],
-    "distance_m": 117.71,
-    "turns": 0,
-    "estimated_time_s": 147.1,
-    "score": 117.71
+    "distance_m": 142.77,
+    "turns": 3,
+    "estimated_time_s": 178.5,
+    "score": 147.27
   },
   {
     "id": "R17",
@@ -250,10 +178,10 @@
       "B",
       "C"
     ],
-    "distance_m": 117.62,
-    "turns": 1,
-    "estimated_time_s": 147.0,
-    "score": 119.12
+    "distance_m": 172.06,
+    "turns": 3,
+    "estimated_time_s": 215.1,
+    "score": 176.56
   },
   {
     "id": "R18",
@@ -262,10 +190,10 @@
       "C",
       "B"
     ],
-    "distance_m": 117.62,
-    "turns": 1,
-    "estimated_time_s": 147.0,
-    "score": 119.12
+    "distance_m": 172.06,
+    "turns": 3,
+    "estimated_time_s": 215.1,
+    "score": 176.56
   },
   {
     "id": "R19",
@@ -274,10 +202,10 @@
       "A",
       "C"
     ],
-    "distance_m": 117.62,
-    "turns": 1,
-    "estimated_time_s": 147.0,
-    "score": 119.12
+    "distance_m": 172.06,
+    "turns": 3,
+    "estimated_time_s": 215.1,
+    "score": 176.56
   },
   {
     "id": "R20",
@@ -286,10 +214,10 @@
       "C",
       "A"
     ],
-    "distance_m": 117.62,
-    "turns": 1,
-    "estimated_time_s": 147.0,
-    "score": 119.12
+    "distance_m": 172.06,
+    "turns": 3,
+    "estimated_time_s": 215.1,
+    "score": 176.56
   },
   {
     "id": "R21",
@@ -298,10 +226,10 @@
       "A",
       "B"
     ],
-    "distance_m": 117.62,
-    "turns": 1,
-    "estimated_time_s": 147.0,
-    "score": 119.12
+    "distance_m": 172.06,
+    "turns": 3,
+    "estimated_time_s": 215.1,
+    "score": 176.56
   },
   {
     "id": "R22",
@@ -310,10 +238,82 @@
       "B",
       "A"
     ],
-    "distance_m": 117.62,
-    "turns": 1,
-    "estimated_time_s": 147.0,
-    "score": 119.12
+    "distance_m": 172.06,
+    "turns": 3,
+    "estimated_time_s": 215.1,
+    "score": 176.56
+  },
+  {
+    "id": "R23",
+    "order": [
+      "A",
+      "B",
+      "D"
+    ],
+    "distance_m": 172.25,
+    "turns": 4,
+    "estimated_time_s": 215.3,
+    "score": 178.25
+  },
+  {
+    "id": "R24",
+    "order": [
+      "A",
+      "D",
+      "B"
+    ],
+    "distance_m": 172.25,
+    "turns": 4,
+    "estimated_time_s": 215.3,
+    "score": 178.25
+  },
+  {
+    "id": "R25",
+    "order": [
+      "B",
+      "A",
+      "D"
+    ],
+    "distance_m": 172.25,
+    "turns": 4,
+    "estimated_time_s": 215.3,
+    "score": 178.25
+  },
+  {
+    "id": "R26",
+    "order": [
+      "B",
+      "D",
+      "A"
+    ],
+    "distance_m": 172.25,
+    "turns": 4,
+    "estimated_time_s": 215.3,
+    "score": 178.25
+  },
+  {
+    "id": "R27",
+    "order": [
+      "D",
+      "A",
+      "B"
+    ],
+    "distance_m": 172.25,
+    "turns": 4,
+    "estimated_time_s": 215.3,
+    "score": 178.25
+  },
+  {
+    "id": "R28",
+    "order": [
+      "D",
+      "B",
+      "A"
+    ],
+    "distance_m": 172.25,
+    "turns": 4,
+    "estimated_time_s": 215.3,
+    "score": 178.25
   },
   {
     "id": "R29",
@@ -322,10 +322,10 @@
       "C",
       "D"
     ],
-    "distance_m": 138.63,
-    "turns": 1,
-    "estimated_time_s": 173.3,
-    "score": 140.13
+    "distance_m": 193.0,
+    "turns": 3,
+    "estimated_time_s": 241.3,
+    "score": 197.5
   },
   {
     "id": "R30",
@@ -334,10 +334,10 @@
       "D",
       "C"
     ],
-    "distance_m": 138.63,
-    "turns": 1,
-    "estimated_time_s": 173.3,
-    "score": 140.13
+    "distance_m": 193.0,
+    "turns": 3,
+    "estimated_time_s": 241.3,
+    "score": 197.5
   },
   {
     "id": "R31",
@@ -346,10 +346,10 @@
       "A",
       "D"
     ],
-    "distance_m": 138.63,
-    "turns": 1,
-    "estimated_time_s": 173.3,
-    "score": 140.13
+    "distance_m": 193.0,
+    "turns": 3,
+    "estimated_time_s": 241.3,
+    "score": 197.5
   },
   {
     "id": "R32",
@@ -358,10 +358,10 @@
       "D",
       "A"
     ],
-    "distance_m": 138.63,
-    "turns": 1,
-    "estimated_time_s": 173.3,
-    "score": 140.13
+    "distance_m": 193.0,
+    "turns": 3,
+    "estimated_time_s": 241.3,
+    "score": 197.5
   },
   {
     "id": "R33",
@@ -370,10 +370,10 @@
       "A",
       "C"
     ],
-    "distance_m": 138.63,
-    "turns": 1,
-    "estimated_time_s": 173.3,
-    "score": 140.13
+    "distance_m": 193.0,
+    "turns": 3,
+    "estimated_time_s": 241.3,
+    "score": 197.5
   },
   {
     "id": "R34",
@@ -382,10 +382,10 @@
       "C",
       "A"
     ],
-    "distance_m": 138.63,
-    "turns": 1,
-    "estimated_time_s": 173.3,
-    "score": 140.13
+    "distance_m": 193.0,
+    "turns": 3,
+    "estimated_time_s": 241.3,
+    "score": 197.5
   },
   {
     "id": "R35",
@@ -394,10 +394,10 @@
       "C",
       "D"
     ],
-    "distance_m": 138.75,
-    "turns": 1,
-    "estimated_time_s": 173.4,
-    "score": 140.25
+    "distance_m": 193.31,
+    "turns": 5,
+    "estimated_time_s": 241.6,
+    "score": 200.81
   },
   {
     "id": "R36",
@@ -406,10 +406,10 @@
       "D",
       "C"
     ],
-    "distance_m": 138.75,
-    "turns": 1,
-    "estimated_time_s": 173.4,
-    "score": 140.25
+    "distance_m": 193.31,
+    "turns": 5,
+    "estimated_time_s": 241.6,
+    "score": 200.81
   },
   {
     "id": "R37",
@@ -418,10 +418,10 @@
       "B",
       "D"
     ],
-    "distance_m": 138.75,
-    "turns": 1,
-    "estimated_time_s": 173.4,
-    "score": 140.25
+    "distance_m": 193.31,
+    "turns": 5,
+    "estimated_time_s": 241.6,
+    "score": 200.81
   },
   {
     "id": "R38",
@@ -430,10 +430,10 @@
       "D",
       "B"
     ],
-    "distance_m": 138.75,
-    "turns": 1,
-    "estimated_time_s": 173.4,
-    "score": 140.25
+    "distance_m": 193.31,
+    "turns": 5,
+    "estimated_time_s": 241.6,
+    "score": 200.81
   },
   {
     "id": "R39",
@@ -442,10 +442,10 @@
       "B",
       "C"
     ],
-    "distance_m": 138.75,
-    "turns": 1,
-    "estimated_time_s": 173.4,
-    "score": 140.25
+    "distance_m": 193.31,
+    "turns": 5,
+    "estimated_time_s": 241.6,
+    "score": 200.81
   },
   {
     "id": "R40",
@@ -454,10 +454,10 @@
       "C",
       "B"
     ],
-    "distance_m": 138.75,
-    "turns": 1,
-    "estimated_time_s": 173.4,
-    "score": 140.25
+    "distance_m": 193.31,
+    "turns": 5,
+    "estimated_time_s": 241.6,
+    "score": 200.81
   },
   {
     "id": "R41",
@@ -467,10 +467,10 @@
       "C",
       "D"
     ],
-    "distance_m": 170.91,
-    "turns": 1,
-    "estimated_time_s": 213.6,
-    "score": 172.41
+    "distance_m": 243.54,
+    "turns": 5,
+    "estimated_time_s": 304.4,
+    "score": 251.04
   },
   {
     "id": "R42",
@@ -480,10 +480,10 @@
       "D",
       "C"
     ],
-    "distance_m": 170.91,
-    "turns": 1,
-    "estimated_time_s": 213.6,
-    "score": 172.41
+    "distance_m": 243.54,
+    "turns": 5,
+    "estimated_time_s": 304.4,
+    "score": 251.04
   },
   {
     "id": "R43",
@@ -493,10 +493,10 @@
       "B",
       "D"
     ],
-    "distance_m": 170.91,
-    "turns": 1,
-    "estimated_time_s": 213.6,
-    "score": 172.41
+    "distance_m": 243.54,
+    "turns": 5,
+    "estimated_time_s": 304.4,
+    "score": 251.04
   },
   {
     "id": "R44",
@@ -506,10 +506,10 @@
       "D",
       "B"
     ],
-    "distance_m": 170.91,
-    "turns": 1,
-    "estimated_time_s": 213.6,
-    "score": 172.41
+    "distance_m": 243.54,
+    "turns": 5,
+    "estimated_time_s": 304.4,
+    "score": 251.04
   },
   {
     "id": "R45",
@@ -519,10 +519,10 @@
       "B",
       "C"
     ],
-    "distance_m": 170.91,
-    "turns": 1,
-    "estimated_time_s": 213.6,
-    "score": 172.41
+    "distance_m": 243.54,
+    "turns": 5,
+    "estimated_time_s": 304.4,
+    "score": 251.04
   },
   {
     "id": "R46",
@@ -532,10 +532,10 @@
       "C",
       "B"
     ],
-    "distance_m": 170.91,
-    "turns": 1,
-    "estimated_time_s": 213.6,
-    "score": 172.41
+    "distance_m": 243.54,
+    "turns": 5,
+    "estimated_time_s": 304.4,
+    "score": 251.04
   },
   {
     "id": "R47",
@@ -545,10 +545,10 @@
       "C",
       "D"
     ],
-    "distance_m": 170.91,
-    "turns": 1,
-    "estimated_time_s": 213.6,
-    "score": 172.41
+    "distance_m": 243.54,
+    "turns": 5,
+    "estimated_time_s": 304.4,
+    "score": 251.04
   },
   {
     "id": "R48",
@@ -558,10 +558,10 @@
       "D",
       "C"
     ],
-    "distance_m": 170.91,
-    "turns": 1,
-    "estimated_time_s": 213.6,
-    "score": 172.41
+    "distance_m": 243.54,
+    "turns": 5,
+    "estimated_time_s": 304.4,
+    "score": 251.04
   },
   {
     "id": "R49",
@@ -571,10 +571,10 @@
       "A",
       "D"
     ],
-    "distance_m": 170.91,
-    "turns": 1,
-    "estimated_time_s": 213.6,
-    "score": 172.41
+    "distance_m": 243.54,
+    "turns": 5,
+    "estimated_time_s": 304.4,
+    "score": 251.04
   },
   {
     "id": "R50",
@@ -584,10 +584,10 @@
       "D",
       "A"
     ],
-    "distance_m": 170.91,
-    "turns": 1,
-    "estimated_time_s": 213.6,
-    "score": 172.41
+    "distance_m": 243.54,
+    "turns": 5,
+    "estimated_time_s": 304.4,
+    "score": 251.04
   },
   {
     "id": "R51",
@@ -597,10 +597,10 @@
       "A",
       "C"
     ],
-    "distance_m": 170.91,
-    "turns": 1,
-    "estimated_time_s": 213.6,
-    "score": 172.41
+    "distance_m": 243.54,
+    "turns": 5,
+    "estimated_time_s": 304.4,
+    "score": 251.04
   },
   {
     "id": "R52",
@@ -610,10 +610,10 @@
       "C",
       "A"
     ],
-    "distance_m": 170.91,
-    "turns": 1,
-    "estimated_time_s": 213.6,
-    "score": 172.41
+    "distance_m": 243.54,
+    "turns": 5,
+    "estimated_time_s": 304.4,
+    "score": 251.04
   },
   {
     "id": "R53",
@@ -623,10 +623,10 @@
       "B",
       "D"
     ],
-    "distance_m": 170.91,
-    "turns": 1,
-    "estimated_time_s": 213.6,
-    "score": 172.41
+    "distance_m": 243.54,
+    "turns": 5,
+    "estimated_time_s": 304.4,
+    "score": 251.04
   },
   {
     "id": "R54",
@@ -636,10 +636,10 @@
       "D",
       "B"
     ],
-    "distance_m": 170.91,
-    "turns": 1,
-    "estimated_time_s": 213.6,
-    "score": 172.41
+    "distance_m": 243.54,
+    "turns": 5,
+    "estimated_time_s": 304.4,
+    "score": 251.04
   },
   {
     "id": "R55",
@@ -649,10 +649,10 @@
       "A",
       "D"
     ],
-    "distance_m": 170.91,
-    "turns": 1,
-    "estimated_time_s": 213.6,
-    "score": 172.41
+    "distance_m": 243.54,
+    "turns": 5,
+    "estimated_time_s": 304.4,
+    "score": 251.04
   },
   {
     "id": "R56",
@@ -662,10 +662,10 @@
       "D",
       "A"
     ],
-    "distance_m": 170.91,
-    "turns": 1,
-    "estimated_time_s": 213.6,
-    "score": 172.41
+    "distance_m": 243.54,
+    "turns": 5,
+    "estimated_time_s": 304.4,
+    "score": 251.04
   },
   {
     "id": "R57",
@@ -675,10 +675,10 @@
       "A",
       "B"
     ],
-    "distance_m": 170.91,
-    "turns": 1,
-    "estimated_time_s": 213.6,
-    "score": 172.41
+    "distance_m": 243.54,
+    "turns": 5,
+    "estimated_time_s": 304.4,
+    "score": 251.04
   },
   {
     "id": "R58",
@@ -688,10 +688,10 @@
       "B",
       "A"
     ],
-    "distance_m": 170.91,
-    "turns": 1,
-    "estimated_time_s": 213.6,
-    "score": 172.41
+    "distance_m": 243.54,
+    "turns": 5,
+    "estimated_time_s": 304.4,
+    "score": 251.04
   },
   {
     "id": "R59",
@@ -701,10 +701,10 @@
       "B",
       "C"
     ],
-    "distance_m": 170.91,
-    "turns": 1,
-    "estimated_time_s": 213.6,
-    "score": 172.41
+    "distance_m": 243.54,
+    "turns": 5,
+    "estimated_time_s": 304.4,
+    "score": 251.04
   },
   {
     "id": "R60",
@@ -714,10 +714,10 @@
       "C",
       "B"
     ],
-    "distance_m": 170.91,
-    "turns": 1,
-    "estimated_time_s": 213.6,
-    "score": 172.41
+    "distance_m": 243.54,
+    "turns": 5,
+    "estimated_time_s": 304.4,
+    "score": 251.04
   },
   {
     "id": "R61",
@@ -727,10 +727,10 @@
       "A",
       "C"
     ],
-    "distance_m": 170.91,
-    "turns": 1,
-    "estimated_time_s": 213.6,
-    "score": 172.41
+    "distance_m": 243.54,
+    "turns": 5,
+    "estimated_time_s": 304.4,
+    "score": 251.04
   },
   {
     "id": "R62",
@@ -740,10 +740,10 @@
       "C",
       "A"
     ],
-    "distance_m": 170.91,
-    "turns": 1,
-    "estimated_time_s": 213.6,
-    "score": 172.41
+    "distance_m": 243.54,
+    "turns": 5,
+    "estimated_time_s": 304.4,
+    "score": 251.04
   },
   {
     "id": "R63",
@@ -753,10 +753,10 @@
       "A",
       "B"
     ],
-    "distance_m": 170.91,
-    "turns": 1,
-    "estimated_time_s": 213.6,
-    "score": 172.41
+    "distance_m": 243.54,
+    "turns": 5,
+    "estimated_time_s": 304.4,
+    "score": 251.04
   },
   {
     "id": "R64",
@@ -766,9 +766,9 @@
       "B",
       "A"
     ],
-    "distance_m": 170.91,
-    "turns": 1,
-    "estimated_time_s": 213.6,
-    "score": 172.41
+    "distance_m": 243.54,
+    "turns": 5,
+    "estimated_time_s": 304.4,
+    "score": 251.04
   }
 ]
