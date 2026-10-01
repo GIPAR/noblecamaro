@@ -16,8 +16,9 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, send_from_directory, Response, stream_with_context
 from flask_cors import CORS
+import requests
 
 import database as db
 import llm as llm_module
@@ -338,13 +339,127 @@ def update_telemetry():
 def robot_status():
     """Posição atual real do robô (vinda do ROS2/Gazebo via rosbridge) e a
     sala mais próxima dela, calculada com as coordenadas reais do mapa."""
-    x, y = robot_state["x"], robot_state["y"]
+    x, y = robot_state.get("x", 2.0), robot_state.get("y", 0.0)
     return jsonify({
         "x": x,
         "y": y,
-        "conectado": robot_state["connected"],
+        "z": robot_state.get("z", 0.0),
+        "yaw": robot_state.get("yaw", 0.0),
+        "orientation": robot_state.get("orientation", {"x": 0.0, "y": 0.0, "z": 0.0, "w": 1.0}),
+        "conectado": robot_state.get("connected", False),
         "sala_mais_proxima": sala_mais_proxima(x, y),
     })
+
+
+# ─── Câmera ZED (via web_video_server) ────────────────────────────────────
+# O web_video_server (porta 8080) sobe junto com a simulação (gazebo.launch.py)
+# e expõe os tópicos ROS de imagem como MJPEG/HTTP. O Flask faz proxy para o
+# frontend não precisar lidar com CORS nem com outra porta.
+WEB_VIDEO_SERVER_URL = os.environ.get("WEB_VIDEO_SERVER_URL", "http://localhost:8080")
+
+CAMERA_TOPICS: dict = {
+    "/zed/zed_node/rgb/image_raw": "ZED 2i — RGB (visão do robô)",
+    "/zed/zed_node/rgb/image_raw/depth_image": "ZED 2 — Profundidade (float32, sem vídeo)",
+    "/zed/zed_node/rgb/depth_image_viz": "ZED 2i — Profundidade (colorida)",
+    "/camera_user/image": "Câmera do usuário (traseira)",
+}
+
+# Tópicos exibidos no painel do site (e anunciados no /api/camera/status).
+# Os demais continuam acessíveis via proxy direto (/stream, /snapshot).
+STATUS_VISIBLE_TOPICS = {
+    "/zed/zed_node/rgb/image_raw",
+    "/zed/zed_node/rgb/depth_image_viz",
+}
+
+DEFAULT_CAMERA_TOPIC = "/zed/zed_node/rgb/image_raw"
+
+
+def _web_video_up(timeout: float = 2.0) -> bool:
+    try:
+        r = requests.get(f"{WEB_VIDEO_SERVER_URL}/", timeout=timeout)
+        return r.status_code < 500
+    except Exception:
+        return False
+
+
+@app.route("/api/camera/status", methods=["GET"])
+def camera_status():
+    """Diz ao frontend quais tópicos de câmera existem e se o vídeo está no ar."""
+    online = _web_video_up()
+    return jsonify({
+        "online": online,
+        "web_video_server": WEB_VIDEO_SERVER_URL,
+        "rosbridge_connected": bool(robot_state.get("connected", False)),
+        "topics": [{"topic": t, "label": label} for t, label in CAMERA_TOPICS.items()
+                   if t in STATUS_VISIBLE_TOPICS],
+        "default_topic": DEFAULT_CAMERA_TOPIC,
+        "stream_url_template": "/api/camera/stream?topic={topic}",
+        "snapshot_url_template": "/api/camera/snapshot?topic={topic}",
+        "direct_url_template": f"{WEB_VIDEO_SERVER_URL}/stream?topic={{topic}}",
+        "hint_offline": (
+            "Simulação offline. Suba com: "
+            "ros2 launch camaro_description gazebo.launch.py"
+        ) if not online else "",
+    })
+
+
+@app.route("/api/camera/stream", methods=["GET"])
+def camera_stream():
+    """Proxy MJPEG: /api/camera/stream?topic=/zed/zed_node/rgb/image_raw"""
+    topic = request.args.get("topic", DEFAULT_CAMERA_TOPIC)
+    if topic not in CAMERA_TOPICS:
+        return jsonify({
+            "error": f"Tópico inválido. Use um de: {list(CAMERA_TOPICS)}",
+        }), 400
+    upstream = f"{WEB_VIDEO_SERVER_URL}/stream?topic={topic}"
+    try:
+        r = requests.get(upstream, stream=True, timeout=5)
+    except Exception:
+        return jsonify({
+            "error": "web_video_server offline",
+            "hint": "Suba a simulação: ros2 launch camaro_description gazebo.launch.py",
+        }), 503
+    if r.status_code != 200:
+        return jsonify({"error": f"web_video_server respondeu HTTP {r.status_code}"}), 502
+
+    def generate():
+        try:
+            for chunk in r.iter_content(chunk_size=8192):
+                if chunk:
+                    yield chunk
+        finally:
+            try:
+                r.close()
+            except Exception:
+                pass
+
+    content_type = r.headers.get("Content-Type", "multipart/x-mixed-replace;boundary=--boundarydonotcross")
+    return Response(
+        stream_with_context(generate()),
+        content_type=content_type,
+        headers={"Cache-Control": "no-cache", "Connection": "keep-alive"},
+    )
+
+
+@app.route("/api/camera/snapshot", methods=["GET"])
+def camera_snapshot():
+    """Frame único JPEG: /api/camera/snapshot?topic=/zed/zed_node/rgb/image_raw"""
+    topic = request.args.get("topic", DEFAULT_CAMERA_TOPIC)
+    if topic not in CAMERA_TOPICS:
+        return jsonify({
+            "error": f"Tópico inválido. Use um de: {list(CAMERA_TOPICS)}",
+        }), 400
+    upstream = f"{WEB_VIDEO_SERVER_URL}/snapshot?topic={topic}"
+    try:
+        r = requests.get(upstream, timeout=5)
+    except Exception:
+        return jsonify({
+            "error": "web_video_server offline",
+            "hint": "Suba a simulação: ros2 launch camaro_description gazebo.launch.py",
+        }), 503
+    if r.status_code != 200 or not r.content:
+        return jsonify({"error": f"snapshot indisponível (HTTP {r.status_code})"}), 502
+    return Response(r.content, content_type="image/jpeg")
 
 
 @app.route("/api/chat", methods=["POST"])
@@ -509,7 +624,7 @@ def submit_order_feedback(order_id):
         "ok": True,
         "order_id": order_id,
         "rating": rating,
-        "stars": "⭐" * rating,
+        "stars": f"{rating}/5",
         "message": "Obrigado pelo seu feedback! A IA utilizará esta avaliação para melhorar continuamente."
     })
 

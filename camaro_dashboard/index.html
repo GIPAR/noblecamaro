@@ -185,15 +185,15 @@
 
           <!-- Quick Action Suggestion Chips -->
           <div class="chat-suggestions" id="chat-suggestions">
-            <button type="button" class="chat-chip" data-cmd="adicione 2 ESP32">⚡ +2 ESP32</button>
-            <button type="button" class="chat-chip" data-cmd="adicione 1 relé">⚡ +1 Relé</button>
-            <button type="button" class="chat-chip" data-cmd="adicione 1 sensor ultrassônico">⚡ +1 Sensor</button>
-            <button type="button" class="chat-chip" data-cmd="abrir carrinho">🛒 Abrir Carrinho</button>
-            <button type="button" class="chat-chip" data-cmd="escolher Sala B">📍 Escolher Sala B</button>
-            <button type="button" class="chat-chip" data-cmd="confirmar pedido">🚀 Confirmar Pedido</button>
-            <button type="button" class="chat-chip" data-cmd="acompanhar pedido">🗺️ Acompanhar Pedido</button>
-            <button type="button" class="chat-chip" data-cmd="onde está o camaro?">🤖 Onde está o Camaro?</button>
-            <button type="button" class="chat-chip" data-cmd="limpar carrinho">🗑️ Limpar Carrinho</button>
+            <button type="button" class="chat-chip" data-cmd="adicione 2 ESP32">+2 ESP32</button>
+            <button type="button" class="chat-chip" data-cmd="adicione 1 relé">+1 Relé</button>
+            <button type="button" class="chat-chip" data-cmd="adicione 1 sensor ultrassônico">+1 Sensor</button>
+            <button type="button" class="chat-chip" data-cmd="abrir carrinho">Abrir Carrinho</button>
+            <button type="button" class="chat-chip" data-cmd="escolher Sala B">Escolher Sala B</button>
+            <button type="button" class="chat-chip" data-cmd="confirmar pedido">Confirmar Pedido</button>
+            <button type="button" class="chat-chip" data-cmd="acompanhar pedido">Acompanhar Pedido</button>
+            <button type="button" class="chat-chip" data-cmd="onde está o camaro?">Onde está o Camaro?</button>
+            <button type="button" class="chat-chip" data-cmd="limpar carrinho">Limpar Carrinho</button>
           </div>
 
           <div class="chatbot-input-container">
@@ -315,14 +315,10 @@
           <div class="admin-card animate-fade-in">
             <div class="admin-card-header flex-between">
               <div class="admin-card-title">
-                Monitoramento do Trajeto em Tempo Real
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"></path>
-                  <circle cx="12" cy="10" r="3"></circle>
-                </svg>
+                Câmeras do Camaro em Tempo Real
               </div>
               <span class="badge" style="font-size: 11px; background-color: rgba(255, 204, 0, 0.1); color: var(--accent-color); border: 1px solid rgba(255, 204, 0, 0.2);">
-                Simulação ROS2 / Gazebo
+                ZED 2i • RGB + Profundidade
               </span>
             </div>
             <div id="admin-live-map-container" style="padding: 16px;">
@@ -335,14 +331,6 @@
             <div class="admin-card-header flex-between">
               <div class="admin-card-title">
                 Fila de Pedidos Recebidos
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="8" y1="6" x2="21" y2="6"></line>
-                  <line x1="8" y1="12" x2="21" y2="12"></line>
-                  <line x1="8" y1="18" x2="21" y2="18"></line>
-                  <line x1="3" y1="6" x2="3.01" y2="6"></line>
-                  <line x1="3" y1="12" x2="3.01" y2="12"></line>
-                  <line x1="3" y1="18" x2="3.01" y2="18"></line>
-                </svg>
               </div>
               <button class="btn btn-primary" onclick="confirmAllOrders()" style="padding: 6px 12px; font-size: 12px;">
                 Confirmar Todos
@@ -387,72 +375,6 @@
             </div>
           </div>
 
-          <!-- Continuous Learning (AI Intelligence Stats) -->
-          <div class="admin-card animate-fade-in">
-            <div class="admin-card-header">
-              <div class="admin-card-title">
-                Módulo de Aprendizado Contínuo da IA
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                </svg>
-              </div>
-            </div>
-            <div class="stats-panel-wrapper" style="padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; border-bottom: 1px solid var(--border-color);">
-              <div style="background-color: var(--bg-tertiary); padding: 12px; border-radius: 6px; border: 1px solid var(--border-color);">
-                <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Mensagens</div>
-                <div id="ai-stats-messages" style="font-size: 20px; font-weight: 700; color: var(--accent-color); margin-top: 4px;">0</div>
-              </div>
-              <div style="background-color: var(--bg-tertiary); padding: 12px; border-radius: 6px; border: 1px solid var(--border-color);">
-                <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Média Avaliação</div>
-                <div id="ai-stats-rating" style="font-size: 20px; font-weight: 700; color: var(--accent-color); margin-top: 4px;">0.0 / 5</div>
-              </div>
-              <div style="background-color: var(--bg-tertiary); padding: 12px; border-radius: 6px; border: 1px solid var(--border-color);">
-                <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Total Avaliações</div>
-                <div id="ai-stats-total-feedback" style="font-size: 20px; font-weight: 700; color: var(--accent-color); margin-top: 4px;">0</div>
-              </div>
-              <div style="background-color: var(--bg-tertiary); padding: 12px; border-radius: 6px; border: 1px solid var(--border-color);">
-                <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Modo Atual</div>
-                <div id="ai-stats-mode" style="font-size: 14px; font-weight: 600; color: var(--text-primary); margin-top: 8px;">Fallback</div>
-              </div>
-            </div>
-            <div style="padding: 20px;">
-              <h4 style="font-size: 13px; font-weight: 600; margin-bottom: 10px;">Top Padrões de Comandos Aprendidos:</h4>
-              <div class="history-table-wrapper" style="max-height: 180px; overflow-y: auto;">
-                <table class="history-table" style="font-size: 12px;">
-                  <thead>
-                    <tr>
-                      <th>Comando Padrão</th>
-                      <th>Ação Interpretada</th>
-                      <th>Frequência</th>
-                    </tr>
-                  </thead>
-                  <tbody id="ai-patterns-tbody">
-                    <tr><td colspan="3" class="text-center" style="color: var(--text-muted);">Aguardando dados...</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div style="padding: 20px; border-top: 1px solid var(--border-color);">
-              <h4 style="font-size: 13px; font-weight: 600; margin-bottom: 10px;">Avaliações & Comentários Recentes:</h4>
-              <div class="history-table-wrapper" style="max-height: 180px; overflow-y: auto;">
-                <table class="history-table" style="font-size: 12px;">
-                  <thead>
-                    <tr>
-                      <th>Pedido</th>
-                      <th>Estrelas</th>
-                      <th>Comentário</th>
-                      <th>Data</th>
-                    </tr>
-                  </thead>
-                  <tbody id="ai-feedback-tbody">
-                    <tr><td colspan="4" class="text-center" style="color: var(--text-muted);">Aguardando avaliações...</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
         </div>
 
         <!-- Right Panel: Chatbot Sidebar for Admin -->
@@ -475,11 +397,11 @@
 
           <!-- Quick Action Suggestion Chips for Admin -->
           <div class="chat-suggestions" id="admin-chat-suggestions">
-            <button type="button" class="chat-chip" data-cmd="ver pedidos pendentes">📋 Ver Pedidos</button>
-            <button type="button" class="chat-chip" data-cmd="confirmar todos os pedidos">🚀 Confirmar Todos</button>
-            <button type="button" class="chat-chip" data-cmd="autorizar rota em lote">🗺️ Autorizar Lote</button>
-            <button type="button" class="chat-chip" data-cmd="onde está o camaro?">🤖 Status do Camaro</button>
-            <button type="button" class="chat-chip" data-cmd="ajuda">❓ Ajuda</button>
+            <button type="button" class="chat-chip" data-cmd="ver pedidos pendentes">Ver Pedidos</button>
+            <button type="button" class="chat-chip" data-cmd="confirmar todos os pedidos">Confirmar Todos</button>
+            <button type="button" class="chat-chip" data-cmd="autorizar rota em lote">Autorizar Lote</button>
+            <button type="button" class="chat-chip" data-cmd="onde está o camaro?">Status do Camaro</button>
+            <button type="button" class="chat-chip" data-cmd="ajuda">Ajuda</button>
           </div>
 
           <div class="chatbot-input-container">
@@ -545,10 +467,10 @@
   </div>
 
   <!-- JavaScript Files -->
-  <script src="js/api.js?v=5"></script>
-  <script src="js/state.js?v=5"></script>
-  <script src="js/client.js?v=5"></script>
-  <script src="js/admin.js?v=5"></script>
-  <script src="js/app.js?v=5"></script>
+  <script src="js/api.js?v=8"></script>
+  <script src="js/state.js?v=8"></script>
+  <script src="js/client.js?v=8"></script>
+  <script src="js/admin.js?v=8"></script>
+  <script src="js/app.js?v=8"></script>
 </body>
 </html>

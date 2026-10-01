@@ -10,7 +10,7 @@ pygame.init()
 rclpy.init()
 node = Node('camaro_controller')
 
-current_topic = '/smartcamaro/cmd_vel'
+current_topic = '/cmd_vel'
 pub = node.create_publisher(Twist, current_topic, 10)
 
 pygame.joystick.init()

@@ -24,7 +24,7 @@ import math
 APPROACH_DISTANCE = 0.8
 
 # (x, y, yaw)
-BASE = (2.0, 0.0, 0.0)  # home_base -- yaw é suposição, ver nota acima
+BASE = (-3.4, 0.0, 0.0)  # home_base -- yaw é suposição, ver nota acima
 
 DOORS = {
     "A": (11.0, 2.0, 1.5708),

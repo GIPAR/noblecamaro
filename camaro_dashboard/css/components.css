@@ -1063,4 +1063,227 @@
   border-radius: 50%;
 }
 
+/* ==========================================================================
+   GAZEBO 2D REAL MAP COMPONENT (corridor_rooms.sdf proportions)
+   ========================================================================== */
+.gazebo-map-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  font-family: var(--font-family);
+}
+
+.map-hud-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 10px 16px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--input-radius);
+  font-size: 12px;
+}
+
+.map-hud-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.map-hud-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.map-hud-divider {
+  width: 1px;
+  height: 16px;
+  background: var(--border-color);
+}
+
+.map-coord-val {
+  font-family: 'SF Mono', Monaco, Consolas, 'Liberation Mono', Menlo, monospace;
+  font-weight: 700;
+  color: var(--accent-color);
+  background: rgba(255, 204, 0, 0.08);
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 204, 0, 0.2);
+  letter-spacing: 0.02em;
+}
+
+.map-nearest-badge {
+  background: rgba(255, 204, 0, 0.15);
+  color: var(--accent-color);
+  border: 1px solid rgba(255, 204, 0, 0.35);
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  box-shadow: 0 0 10px rgba(255, 204, 0, 0.15);
+  transition: all var(--transition-fast);
+}
+
+/* (planta 2D e simulador 3D removidos — monitoramento agora é só câmeras ZED) */
+
+/* ==========================================================================
+   TOASTS (avisos não-bloqueantes no lugar de alert/confirm)
+   ========================================================================== */
+.toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 2000;
+  max-width: min(360px, calc(100vw - 40px));
+}
+
+.toast {
+  padding: 12px 16px;
+  border-radius: var(--input-radius);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--text-muted);
+  box-shadow: var(--shadow-lg);
+  cursor: pointer;
+  animation: fadeIn var(--transition-normal) forwards;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.toast-success {
+  border-left-color: var(--status-delivered);
+}
+
+.toast-error {
+  border-left-color: var(--status-error);
+}
+
+.toast-info {
+  border-left-color: var(--accent-color);
+}
+
+.toast-out {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+/* Câmeras ZED (painel duplo admin) */
+.cam-preset-btn {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 5px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cam-preset-btn:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+/* ==========================================================================
+   ZED LIVE CAMERA PANEL (monitoramento em tempo real — admin)
+   ========================================================================== */
+.zed-camera-panel {
+  margin-top: 12px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--input-radius);
+  overflow: hidden;
+}
+
+.zed-camera-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.zed-duo-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+@media (min-width: 900px) {
+  .zed-duo-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.zed-duo-grid .zed-camera-panel {
+  margin-top: 0;
+  min-width: 0;
+}
+
+.zed-camera-body {
+  position: relative;
+  background: #000;
+  aspect-ratio: 16 / 9;
+  max-height: 420px;
+  overflow: hidden;
+}
+
+.zed-camera-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+  display: block;
+}
+
+.zed-camera-offline {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  background: radial-gradient(circle at 50% 40%, rgba(255, 204, 0, 0.04), transparent 65%), #0d0d10;
+  text-align: center;
+  padding: 24px;
+  font-size: 13px;
+}
+
+.zed-camera-topic-badge {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-size: 10px;
+  font-family: 'SF Mono', Monaco, Consolas, monospace;
+  color: var(--accent-color);
+  background: rgba(15, 15, 20, 0.8);
+  backdrop-filter: blur(8px);
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 204, 0, 0.25);
+  pointer-events: none;
+  max-width: calc(100% - 20px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
 

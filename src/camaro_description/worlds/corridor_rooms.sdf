@@ -85,6 +85,7 @@
 
     <!-- ========== CENA ========== -->
     <scene>
+      <grid>false</grid>
       <ambient>0.8 0.8 0.8 1</ambient>
       <background>0.9 0.9 0.9 1</background>
       <shadows>false</shadows>
@@ -128,10 +129,7 @@
       <visual name="lobby_north_vis">
         <pose>-4.0 4.0 1.25 0 0 0.0</pose>
         <geometry><box><size>8.0 0.2 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="lobby_south_col">
         <pose>-4.0 -4.0 1.25 0 0 0.0</pose>
@@ -140,10 +138,7 @@
       <visual name="lobby_south_vis">
         <pose>-4.0 -4.0 1.25 0 0 0.0</pose>
         <geometry><box><size>8.0 0.2 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="lobby_west_a_col">
         <pose>-8.0 2.5 1.25 0 0 0.0</pose>
@@ -152,10 +147,7 @@
       <visual name="lobby_west_a_vis">
         <pose>-8.0 2.5 1.25 0 0 0.0</pose>
         <geometry><box><size>0.2 3.0 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="lobby_west_b_col">
         <pose>-8.0 -2.5 1.25 0 0 0.0</pose>
@@ -164,10 +156,7 @@
       <visual name="lobby_west_b_vis">
         <pose>-8.0 -2.5 1.25 0 0 0.0</pose>
         <geometry><box><size>0.2 3.0 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
             <collision name="lobby_west_entrance_col">
         <pose>-8.0 0.0 1.25 0 0 0.0</pose>
@@ -176,10 +165,7 @@
       <visual name="lobby_west_entrance_vis">
         <pose>-8.0 0.0 1.25 0 0 0.0</pose>
         <geometry><box><size>0.2 2.0 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="lobby_east_a_col">
         <pose>0.0 3.0 1.25 0 0 0.0</pose>
@@ -188,10 +174,7 @@
       <visual name="lobby_east_a_vis">
         <pose>0.0 3.0 1.25 0 0 0.0</pose>
         <geometry><box><size>0.2 2.0 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="lobby_east_b_col">
         <pose>0.0 -3.0 1.25 0 0 0.0</pose>
@@ -200,10 +183,7 @@
       <visual name="lobby_east_b_vis">
         <pose>0.0 -3.0 1.25 0 0 0.0</pose>
         <geometry><box><size>0.2 2.0 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="corridor_north_0_col">
         <pose>5.0 2.0 1.25 0 0 0.0</pose>
@@ -212,10 +192,7 @@
       <visual name="corridor_north_0_vis">
         <pose>5.0 2.0 1.25 0 0 0.0</pose>
         <geometry><box><size>10.0 0.2 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="corridor_north_1_col">
         <pose>14.5 2.0 1.25 0 0 0.0</pose>
@@ -224,10 +201,7 @@
       <visual name="corridor_north_1_vis">
         <pose>14.5 2.0 1.25 0 0 0.0</pose>
         <geometry><box><size>5.0 0.2 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="corridor_north_2_col">
         <pose>20.5 2.0 1.25 0 0 0.0</pose>
@@ -236,10 +210,7 @@
       <visual name="corridor_north_2_vis">
         <pose>20.5 2.0 1.25 0 0 0.0</pose>
         <geometry><box><size>3.0 0.2 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="corridor_south_0_col">
         <pose>5.0 -2.0 1.25 0 0 0.0</pose>
@@ -248,10 +219,7 @@
       <visual name="corridor_south_0_vis">
         <pose>5.0 -2.0 1.25 0 0 0.0</pose>
         <geometry><box><size>10.0 0.2 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="corridor_south_1_col">
         <pose>14.5 -2.0 1.25 0 0 0.0</pose>
@@ -260,10 +228,7 @@
       <visual name="corridor_south_1_vis">
         <pose>14.5 -2.0 1.25 0 0 0.0</pose>
         <geometry><box><size>5.0 0.2 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="corridor_south_2_col">
         <pose>20.5 -2.0 1.25 0 0 0.0</pose>
@@ -272,10 +237,7 @@
       <visual name="corridor_south_2_vis">
         <pose>20.5 -2.0 1.25 0 0 0.0</pose>
         <geometry><box><size>3.0 0.2 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="corridor_east_end_col">
         <pose>22.0 0.0 1.25 0 0 0.0</pose>
@@ -284,10 +246,7 @@
       <visual name="corridor_east_end_vis">
         <pose>22.0 0.0 1.25 0 0 0.0</pose>
         <geometry><box><size>0.2 4.0 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="room_A_doorwall_a_col">
         <pose>9.25 2.0 1.25 0 0 0.0</pose>
@@ -296,10 +255,7 @@
       <visual name="room_A_doorwall_a_vis">
         <pose>9.25 2.0 1.25 0 0 0.0</pose>
         <geometry><box><size>1.5 0.2 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="room_A_doorwall_b_col">
         <pose>12.75 2.0 1.25 0 0 0.0</pose>
@@ -308,10 +264,7 @@
       <visual name="room_A_doorwall_b_vis">
         <pose>12.75 2.0 1.25 0 0 0.0</pose>
         <geometry><box><size>1.5 0.2 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="room_A_backwall_col">
         <pose>11.0 10.0 1.25 0 0 0.0</pose>
@@ -320,10 +273,7 @@
       <visual name="room_A_backwall_vis">
         <pose>11.0 10.0 1.25 0 0 0.0</pose>
         <geometry><box><size>5.0 0.2 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="room_A_sidewall_1_col">
         <pose>8.5 6.0 1.25 0 0 0.0</pose>
@@ -332,10 +282,7 @@
       <visual name="room_A_sidewall_1_vis">
         <pose>8.5 6.0 1.25 0 0 0.0</pose>
         <geometry><box><size>0.2 8.0 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="room_A_sidewall_2_col">
         <pose>13.5 6.0 1.25 0 0 0.0</pose>
@@ -344,10 +291,7 @@
       <visual name="room_A_sidewall_2_vis">
         <pose>13.5 6.0 1.25 0 0 0.0</pose>
         <geometry><box><size>0.2 8.0 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="room_B_doorwall_a_col">
         <pose>9.25 -2.0 1.25 0 0 0.0</pose>
@@ -356,10 +300,7 @@
       <visual name="room_B_doorwall_a_vis">
         <pose>9.25 -2.0 1.25 0 0 0.0</pose>
         <geometry><box><size>1.5 0.2 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="room_B_doorwall_b_col">
         <pose>12.75 -2.0 1.25 0 0 0.0</pose>
@@ -368,10 +309,7 @@
       <visual name="room_B_doorwall_b_vis">
         <pose>12.75 -2.0 1.25 0 0 0.0</pose>
         <geometry><box><size>1.5 0.2 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="room_B_backwall_col">
         <pose>11.0 -10.0 1.25 0 0 0.0</pose>
@@ -380,10 +318,7 @@
       <visual name="room_B_backwall_vis">
         <pose>11.0 -10.0 1.25 0 0 0.0</pose>
         <geometry><box><size>5.0 0.2 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="room_B_sidewall_1_col">
         <pose>8.5 -6.0 1.25 0 0 0.0</pose>
@@ -392,10 +327,7 @@
       <visual name="room_B_sidewall_1_vis">
         <pose>8.5 -6.0 1.25 0 0 0.0</pose>
         <geometry><box><size>0.2 8.0 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="room_B_sidewall_2_col">
         <pose>13.5 -6.0 1.25 0 0 0.0</pose>
@@ -404,10 +336,7 @@
       <visual name="room_B_sidewall_2_vis">
         <pose>13.5 -6.0 1.25 0 0 0.0</pose>
         <geometry><box><size>0.2 8.0 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="room_C_doorwall_a_col">
         <pose>16.25 2.0 1.25 0 0 0.0</pose>
@@ -416,10 +345,7 @@
       <visual name="room_C_doorwall_a_vis">
         <pose>16.25 2.0 1.25 0 0 0.0</pose>
         <geometry><box><size>1.5 0.2 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="room_C_doorwall_b_col">
         <pose>19.75 2.0 1.25 0 0 0.0</pose>
@@ -428,10 +354,7 @@
       <visual name="room_C_doorwall_b_vis">
         <pose>19.75 2.0 1.25 0 0 0.0</pose>
         <geometry><box><size>1.5 0.2 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="room_C_backwall_col">
         <pose>18.0 10.0 1.25 0 0 0.0</pose>
@@ -440,10 +363,7 @@
       <visual name="room_C_backwall_vis">
         <pose>18.0 10.0 1.25 0 0 0.0</pose>
         <geometry><box><size>5.0 0.2 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="room_C_sidewall_1_col">
         <pose>15.5 6.0 1.25 0 0 0.0</pose>
@@ -452,10 +372,7 @@
       <visual name="room_C_sidewall_1_vis">
         <pose>15.5 6.0 1.25 0 0 0.0</pose>
         <geometry><box><size>0.2 8.0 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="room_C_sidewall_2_col">
         <pose>20.5 6.0 1.25 0 0 0.0</pose>
@@ -464,10 +381,7 @@
       <visual name="room_C_sidewall_2_vis">
         <pose>20.5 6.0 1.25 0 0 0.0</pose>
         <geometry><box><size>0.2 8.0 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="room_D_doorwall_a_col">
         <pose>16.25 -2.0 1.25 0 0 0.0</pose>
@@ -476,10 +390,7 @@
       <visual name="room_D_doorwall_a_vis">
         <pose>16.25 -2.0 1.25 0 0 0.0</pose>
         <geometry><box><size>1.5 0.2 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="room_D_doorwall_b_col">
         <pose>19.75 -2.0 1.25 0 0 0.0</pose>
@@ -488,10 +399,7 @@
       <visual name="room_D_doorwall_b_vis">
         <pose>19.75 -2.0 1.25 0 0 0.0</pose>
         <geometry><box><size>1.5 0.2 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="room_D_backwall_col">
         <pose>18.0 -10.0 1.25 0 0 0.0</pose>
@@ -500,10 +408,7 @@
       <visual name="room_D_backwall_vis">
         <pose>18.0 -10.0 1.25 0 0 0.0</pose>
         <geometry><box><size>5.0 0.2 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="room_D_sidewall_1_col">
         <pose>15.5 -6.0 1.25 0 0 0.0</pose>
@@ -512,10 +417,7 @@
       <visual name="room_D_sidewall_1_vis">
         <pose>15.5 -6.0 1.25 0 0 0.0</pose>
         <geometry><box><size>0.2 8.0 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <collision name="room_D_sidewall_2_col">
         <pose>20.5 -6.0 1.25 0 0 0.0</pose>
@@ -524,10 +426,7 @@
       <visual name="room_D_sidewall_2_vis">
         <pose>20.5 -6.0 1.25 0 0 0.0</pose>
         <geometry><box><size>0.2 8.0 2.5</size></box></geometry>
-        <material>
-          <ambient>0.8 0.8 0.78 1</ambient>
-          <diffuse>0.8 0.8 0.78 1</diffuse>
-        </material>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><pbr><metal><albedo_map>materials/textures/wall.png</albedo_map><metalness>0</metalness><roughness>1</roughness></metal></pbr></material>
       </visual>
       <visual name="plate_A_vis">
         <pose>11.0 9.89 1.375 1.5708 0 0.0</pose>
@@ -591,38 +490,18 @@
       </visual></link>
     </model>
 
-    <!-- ===== PESSOAS ENCOSTADAS NA PAREDE DO FUNDO DE CADA SALA (Fuel) ===== -->
-    <include>
-      <uri>https://fuel.gazebosim.org/1.0/abmohit/models/Standing person</uri>
-      <name>cleber</name>
-      <pose>11 8.8 0 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/PatientWheelChair</uri>
-      <name>nara</name>
-      <pose>11 -8.8 0 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Scrubs</uri>
-      <name>jessyca</name>
-      <pose>18 8.8 0 0 0 -1.5708</pose>
-    </include>
-
-    <include>
-      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/MaleVisitorOnPhone</uri>
-      <name>pedro</name>
-      <pose>18 -8.8 0 0 0 1.5708</pose>
-    </include>
+    <!-- ===== PESSOAS (removidas no perfil LIGHT) =====
+         O corridor_rooms_light serve so pra treinar movimentacao basica:
+         apenas paredes/corredores e os checkpoints de entrega. As pessoas
+         (e todo o cenario cheio) ficam no corridor_rooms_high.sdf. -->
 
     <!-- ===== CHECKPOINTS AZUIS (na frente de cada pessoa) ===== -->
     <model name='checkpoint_a'>
       <static>true</static>
       <link name='link'>
         <visual name='vis'>
-          <pose>11 5.6 0.06 0 0 0</pose>
-          <geometry><cylinder><radius>0.5</radius><length>0.1</length></cylinder></geometry>
+          <pose>11 5.6 0.02 0 0 0</pose>
+          <geometry><cylinder><radius>0.5</radius><length>0.04</length></cylinder></geometry>
           <material>
             <ambient>0.1 0.35 0.95 1</ambient>
             <diffuse>0.1 0.45 1 1</diffuse>
@@ -636,8 +515,8 @@
       <static>true</static>
       <link name='link'>
         <visual name='vis'>
-          <pose>11 -5.6 0.06 0 0 0</pose>
-          <geometry><cylinder><radius>0.5</radius><length>0.1</length></cylinder></geometry>
+          <pose>11 -5.6 0.02 0 0 0</pose>
+          <geometry><cylinder><radius>0.5</radius><length>0.04</length></cylinder></geometry>
           <material>
             <ambient>0.1 0.35 0.95 1</ambient>
             <diffuse>0.1 0.45 1 1</diffuse>
@@ -651,8 +530,8 @@
       <static>true</static>
       <link name='link'>
         <visual name='vis'>
-          <pose>18 5.6 0.06 0 0 0</pose>
-          <geometry><cylinder><radius>0.5</radius><length>0.1</length></cylinder></geometry>
+          <pose>18 5.6 0.02 0 0 0</pose>
+          <geometry><cylinder><radius>0.5</radius><length>0.04</length></cylinder></geometry>
           <material>
             <ambient>0.1 0.35 0.95 1</ambient>
             <diffuse>0.1 0.45 1 1</diffuse>
@@ -666,8 +545,8 @@
       <static>true</static>
       <link name='link'>
         <visual name='vis'>
-          <pose>18 -5.6 0.06 0 0 0</pose>
-          <geometry><cylinder><radius>0.5</radius><length>0.1</length></cylinder></geometry>
+          <pose>18 -5.6 0.02 0 0 0</pose>
+          <geometry><cylinder><radius>0.5</radius><length>0.04</length></cylinder></geometry>
           <material>
             <ambient>0.1 0.35 0.95 1</ambient>
             <diffuse>0.1 0.45 1 1</diffuse>
@@ -677,32 +556,11 @@
       </link>
     </model>
 
-    <!-- ===== BASE/HOME (spawn do camaro) - disco verde + anel branco ===== -->
-    <model name='home_base'>
-      <static>true</static>
-      <link name='link'>
-        <visual name='disk'>
-          <pose>2 0 0.06 0 0 0</pose>
-          <geometry><cylinder><radius>0.6</radius><length>0.1</length></cylinder></geometry>
-          <material>
-            <ambient>0.05 0.75 0.2 1</ambient>
-            <diffuse>0.05 0.85 0.25 1</diffuse>
-            <emissive>0.02 0.3 0.08 1</emissive>
-          </material>
-        </visual>
-        <visual name='ring'>
-          <!-- disco branco mais largo e mais baixo que o disco verde: o
-               verde (radius 0.6, topo em z=0.11) fica por cima e cobre o
-               miolo, sobrando so a borda branca visivel de 0.6 a 0.75. -->
-          <pose>2 0 0.055 0 0 0</pose>
-          <geometry><cylinder><radius>0.75</radius><length>0.03</length></cylinder></geometry>
-          <material>
-            <ambient>0.95 0.95 0.95 1</ambient>
-            <diffuse>1 1 1 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
+    <!-- ===== BASE/HOME (spawn do camaro) =====
+         O disco verde/anel branco foram REMOVIDOS: ficavam na altura do
+         LiDAR (z=0.06) e geravam um anel de obstaculos falsos em volta do
+         robo no costmap, travando a navegacao. O spawn continua em
+         (x=-4.0, y=0) no meio do lobby definido no gazebo.launch.py. -->
 
     <!-- ========== CAMERA INICIAL ========== -->
     <gui fullscreen='0'>

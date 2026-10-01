@@ -19,29 +19,29 @@ void AckermannRecovery::onConfigure()
   }
 
   // Declara parâmetros com defaults do Camaro
-  node->declare_parameter("ackermann_recovery.wheelbase",           0.71);
-  node->declare_parameter("ackermann_recovery.max_steering_angle",  0.6);
-  node->declare_parameter("ackermann_recovery.robot_half_width",    0.23);
-  node->declare_parameter("ackermann_recovery.robot_half_length",   0.30);
-  node->declare_parameter("ackermann_recovery.backup_speed",        0.12);
-  node->declare_parameter("ackermann_recovery.min_clearance_rear",  0.20);
-  node->declare_parameter("ackermann_recovery.min_clearance_side",  0.15);
-  node->declare_parameter("ackermann_recovery.three_point_speed",   0.08);
-  node->declare_parameter("ackermann_recovery.max_maneuver_time",   30.0);
-  node->declare_parameter("ackermann_recovery.scan_topic",          std::string("scan_filtered"));
-  node->declare_parameter("ackermann_recovery.cmd_vel_topic",       std::string("cmd_vel_nav"));
+  node->declare_parameter(behavior_name_ + ".wheelbase",           0.71);
+  node->declare_parameter(behavior_name_ + ".max_steering_angle",  0.6);
+  node->declare_parameter(behavior_name_ + ".robot_half_width",    0.23);
+  node->declare_parameter(behavior_name_ + ".robot_half_length",   0.30);
+  node->declare_parameter(behavior_name_ + ".backup_speed",        0.12);
+  node->declare_parameter(behavior_name_ + ".min_clearance_rear",  0.20);
+  node->declare_parameter(behavior_name_ + ".min_clearance_side",  0.15);
+  node->declare_parameter(behavior_name_ + ".three_point_speed",   0.08);
+  node->declare_parameter(behavior_name_ + ".max_maneuver_time",   30.0);
+  node->declare_parameter(behavior_name_ + ".scan_topic",          std::string("scan_filtered"));
+  node->declare_parameter(behavior_name_ + ".cmd_vel_topic",       std::string("cmd_vel_nav"));
 
-  wheelbase_          = node->get_parameter("ackermann_recovery.wheelbase").as_double();
-  max_steering_angle_ = node->get_parameter("ackermann_recovery.max_steering_angle").as_double();
-  robot_half_width_   = node->get_parameter("ackermann_recovery.robot_half_width").as_double();
-  robot_half_length_  = node->get_parameter("ackermann_recovery.robot_half_length").as_double();
-  backup_speed_       = node->get_parameter("ackermann_recovery.backup_speed").as_double();
-  min_clearance_rear_ = node->get_parameter("ackermann_recovery.min_clearance_rear").as_double();
-  min_clearance_side_ = node->get_parameter("ackermann_recovery.min_clearance_side").as_double();
-  three_point_speed_  = node->get_parameter("ackermann_recovery.three_point_speed").as_double();
-  max_maneuver_time_  = node->get_parameter("ackermann_recovery.max_maneuver_time").as_double();
-  scan_topic_         = node->get_parameter("ackermann_recovery.scan_topic").as_string();
-  cmd_vel_topic_      = node->get_parameter("ackermann_recovery.cmd_vel_topic").as_string();
+  wheelbase_          = node->get_parameter(behavior_name_ + ".wheelbase").as_double();
+  max_steering_angle_ = node->get_parameter(behavior_name_ + ".max_steering_angle").as_double();
+  robot_half_width_   = node->get_parameter(behavior_name_ + ".robot_half_width").as_double();
+  robot_half_length_  = node->get_parameter(behavior_name_ + ".robot_half_length").as_double();
+  backup_speed_       = node->get_parameter(behavior_name_ + ".backup_speed").as_double();
+  min_clearance_rear_ = node->get_parameter(behavior_name_ + ".min_clearance_rear").as_double();
+  min_clearance_side_ = node->get_parameter(behavior_name_ + ".min_clearance_side").as_double();
+  three_point_speed_  = node->get_parameter(behavior_name_ + ".three_point_speed").as_double();
+  max_maneuver_time_  = node->get_parameter(behavior_name_ + ".max_maneuver_time").as_double();
+  scan_topic_         = node->get_parameter(behavior_name_ + ".scan_topic").as_string();
+  cmd_vel_topic_      = node->get_parameter(behavior_name_ + ".cmd_vel_topic").as_string();
 
   // Raio mínimo de curvatura real do Camaro
   min_turning_radius_ = wheelbase_ / std::tan(max_steering_angle_);

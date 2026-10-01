@@ -79,6 +79,7 @@ target_include_directories(ackermann_recovery_plugin PUBLIC
 install(PROGRAMS
   ${CMAKE_CURRENT_SOURCE_DIR}/scripts/tf_remapper.py
   ${CMAKE_CURRENT_SOURCE_DIR}/scripts/camaro_teleop.py
+  ${CMAKE_CURRENT_SOURCE_DIR}/scripts/depth_viz_node.py
   DESTINATION lib/${PROJECT_NAME}
 )
 

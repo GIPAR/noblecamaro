@@ -186,7 +186,7 @@ def _build_batch_suggestion(pending_orders: list) -> str | None:
     route = " → ".join(sorted_dests) + " → Doca Base"
     ids_str = ", ".join(f"'{o['id']}'" for o in pending_orders)
     return (
-        f"⚡ **Sugestão de Rota Otimizada** — Detectei {len(pending_orders)} pedidos pendentes "
+        f"**Sugestão de Rota Otimizada** — Detectei {len(pending_orders)} pedidos pendentes "
         f"em destinos diferentes ({', '.join(sorted_dests)}).\n\n"
         f"Posso fazer a entrega em lote numa única rota: **{route}** "
         f"sem voltar à base entre as paradas. Isso economiza aproximadamente **{savings}% do tempo** "
@@ -350,7 +350,7 @@ def rule_based_response(user_message: str, context_data: dict) -> tuple[list, st
                     "product_name": product["name"],
                     "quantity": qty
                 })
-                return actions, f"🧠 [Aprendi com você!] Adicionei {qty}x {product['name']} ao carrinho."
+                return actions, f"[Aprendi com você!] Adicionei {qty}x {product['name']} ao carrinho."
 
     # ── 1. Admin-only commands ──────────────────────────────────────────────
     if user_role == "admin":
@@ -360,7 +360,7 @@ def rule_based_response(user_message: str, context_data: dict) -> tuple[list, st
                 return [], "Não há pedidos pendentes de confirmação no momento."
             actions.append({"action": "confirm_all"})
             names = ", ".join(o["id"] for o in pending_orders[:5])
-            return actions, f"✅ Confirmando todos os {len(pending_orders)} pedidos pendentes para envio individual!\nPedidos: {names}"
+            return actions, f"Confirmando todos os {len(pending_orders)} pedidos pendentes para envio individual!\nPedidos: {names}"
 
         # Batch route authorization
         if any(k in q for k in ["autorizar lote", "sim autorizar", "autoriza o lote", "sim faz a rota",
@@ -372,7 +372,7 @@ def rule_based_response(user_message: str, context_data: dict) -> tuple[list, st
                     sorted(set(o["destination"] for o in pending_orders),
                            key=lambda d: ROOM_DISTANCES.get(d, 5))
                 ) + " → Doca Base"
-                return actions, f"🗺️ Rota em lote autorizada!\n\n**Rota otimizada:** {dests}\n\nO Camaro irá entregar todos os pedidos sem voltar à base entre as paradas."
+                return actions, f"Rota em lote autorizada!\n\n**Rota otimizada:** {dests}\n\nO Camaro irá entregar todos os pedidos sem voltar à base entre as paradas."
             return [], "Preciso de pelo menos 2 pedidos pendentes para criar uma rota em lote."
 
         # Individual mode
@@ -387,7 +387,7 @@ def rule_based_response(user_message: str, context_data: dict) -> tuple[list, st
             if not pending_orders:
                 return [], "Não há pedidos pendentes no momento."
             lines = [f"• {o['id']} — {o['summary_text']} → {o['destination']}" for o in pending_orders]
-            return [], "📋 Pedidos pendentes:\n\n" + "\n".join(lines)
+            return [], "Pedidos pendentes:\n\n" + "\n".join(lines)
 
     # ── 2. UI Navigation ────────────────────────────────────────────────────
     if any(k in q for k in ["limpar carrinho", "esvaziar carrinho", "zerar carrinho"]):
@@ -402,7 +402,7 @@ def rule_based_response(user_message: str, context_data: dict) -> tuple[list, st
     if any(k in q for k in ["mostrar mapa", "ver mapa", "abrir mapa", "acompanhar entrega",
                               "acompanhar pedido", "rastrear", "tela de acompanhamento"]):
         actions.append({"action": "show_tracking"})
-        return actions, "Alternando para a tela de acompanhamento com o mapa 2D em tempo real!"
+        return actions, "Alternando para a tela de acompanhamento com o mapa em tempo real!"
 
     if any(k in q for k in ["ver catalogo", "ver catálogo", "vitrine", "produtos disponíveis", "o que tem no estoque"]):
         actions.append({"action": "show_catalog"})
@@ -414,7 +414,7 @@ def rule_based_response(user_message: str, context_data: dict) -> tuple[list, st
         if not find_all_products_in_text(q, products) and \
            not any(k in q for k in ["faz o pedido", "fazer pedido", "confirmar pedido"]):
             actions.append({"action": "set_destination", "destination": room_only_match})
-            return actions, f"📍 Local de entrega definido para a **{room_only_match}**! Você pode adicionar mais itens ou dizer 'confirmar pedido'."
+            return actions, f"Local de entrega definido para a **{room_only_match}**! Você pode adicionar mais itens ou dizer 'confirmar pedido'."
 
     # ── 4. Status / Where is the robot ─────────────────────────────────────
     if any(w in q for w in ["onde", "status", "camaro", "robô", "robo", "cade", "cadê", "posição", "posicao"]):
@@ -426,25 +426,25 @@ def rule_based_response(user_message: str, context_data: dict) -> tuple[list, st
         if status == "delivering":
             actions.append({"action": "show_tracking"})
             return actions, (
-                f"📍 O Camaro está em movimento navegando em direção à {target_room}!\n\n"
+                f"O Camaro está em movimento navegando em direção à {target_room}!\n\n"
                 f"• Velocidade: {telemetry.get('speed', 0):.1f} km/h\n"
                 f"• Distância restante: {telemetry.get('distance', 0)}m\n"
                 f"• ETA: {telemetry.get('eta', 0)}s\n"
-                + (f"\n📋 Há mais {queue_size} missão(ões) na fila após esta." if queue_size > 0 else "")
+                + (f"\nHá mais {queue_size} missão(ões) na fila após esta." if queue_size > 0 else "")
             )
         elif status == "returning":
             actions.append({"action": "show_tracking"})
             return actions, (
-                f"🔄 Entrega na {target_room} concluída! Camaro retornando à Doca Base a {telemetry.get('speed', 0):.1f} km/h."
-                + (f"\n📋 Há {queue_size} missão(ões) aguardando." if queue_size > 0 else "")
+                f"Entrega na {target_room} concluída! Camaro retornando à Doca Base a {telemetry.get('speed', 0):.1f} km/h."
+                + (f"\nHá {queue_size} missão(ões) aguardando." if queue_size > 0 else "")
             )
         elif status == "preparing":
             actions.append({"action": "show_tracking"})
-            return actions, "📦 O Camaro está sendo preparado na Doca Base. Iniciará o trajeto em instantes."
+            return actions, "O Camaro está sendo preparado na Doca Base. Iniciará o trajeto em instantes."
         else:
-            idle_msg = f"⚡ O Camaro está ocioso na Doca Base. Bateria: {telemetry.get('battery', 100):.0f}%."
+            idle_msg = f"O Camaro está ocioso na Doca Base. Bateria: {telemetry.get('battery', 100):.0f}%."
             if queue_size > 0:
-                idle_msg += f"\n📋 Há {queue_size} missão(ões) aguardando confirmação."
+                idle_msg += f"\nHá {queue_size} missão(ões) aguardando confirmação."
             return [], idle_msg
 
     # ── 5. Multiple or Single Component Request ─────────────────────────────
@@ -487,17 +487,17 @@ def rule_based_response(user_message: str, context_data: dict) -> tuple[list, st
         item_lines = "\n".join(f"• {m['quantity']}x {m['product']['name']}" for m in available)
         out_of_stock_note = ""
         if out_of_stock:
-            out_of_stock_note = f"\n\n⚠️ Esgotado: {', '.join(m['product']['name'] for m in out_of_stock)}"
+            out_of_stock_note = f"\n\nEsgotado: {', '.join(m['product']['name'] for m in out_of_stock)}"
 
         if is_auto_submit:
             return actions, (
-                f"✅ Pedido confirmado com sucesso!\n\n{item_lines}\n"
+                f"Pedido confirmado com sucesso!\n\n{item_lines}\n"
                 f"Destino: {target_room}{out_of_stock_note}\n\n"
                 f"O Camaro iniciará o trajeto assim que o operador confirmar o envio."
             )
         else:
             next_tip = "Você pode dizer 'escolher Sala B' ou 'confirmar pedido'."
-            return actions, f"🛒 Adicionado ao carrinho:\n\n{item_lines}{out_of_stock_note}\n\n{next_tip}"
+            return actions, f"Adicionado ao carrinho:\n\n{item_lines}{out_of_stock_note}\n\n{next_tip}"
 
     # ── 6. Confirm existing cart ────────────────────────────────────────────
     if any(k in q for k in ["confirmar pedido", "finalizar pedido", "enviar pedido",
@@ -506,14 +506,14 @@ def rule_based_response(user_message: str, context_data: dict) -> tuple[list, st
             return [], "Seu carrinho está vazio! Primeiro me diga quais componentes você precisa."
         room = extract_room(q) or "SALA A"
         actions.append({"action": "submit_order", "destination": room, "timing": "now", "notes": "Confirmado via Chat AI"})
-        return actions, f"✅ Confirmando o envio do seu carrinho para a {room}! Alternando para o mapa."
+        return actions, f"Confirmando o envio do seu carrinho para a {room}! Alternando para o mapa."
 
     # ── 7. Stock Query ──────────────────────────────────────────────────────
     if any(w in q for w in ["estoque", "o que tem", "componentes disponíveis", "tem disponível"]):
         lines = []
         for p in products:
             lines.append(f"• {p['name']}: {p['stock']} un" if p['stock'] > 0 else f"• {p['name']}: Esgotado")
-        return [], "📦 Estoque atual:\n\n" + "\n".join(lines) + "\n\nEx: 'adicione 2 ESP32 e 1 relé'"
+        return [], "Estoque atual:\n\n" + "\n".join(lines) + "\n\nEx: 'adicione 2 ESP32 e 1 relé'"
 
     # ── 8. Active Orders Query ──────────────────────────────────────────────
     if any(w in q for w in ["meu pedido", "meus pedidos", "minha entrega"]):
@@ -527,7 +527,7 @@ def rule_based_response(user_message: str, context_data: dict) -> tuple[list, st
     if any(w in q for w in ["olá", "oi", "bom dia", "boa tarde", "boa noite", "ola", "help", "ajuda"]):
         if user_role == "admin":
             return [], (
-                "Olá, Operador! 🤖 Estou pronto para auxiliar na gestão das entregas.\n\n"
+                "Olá, Operador! Estou pronto para auxiliar na gestão das entregas.\n\n"
                 "Comandos disponíveis:\n"
                 "• *'Ver pedidos pendentes'* — lista e sugere rota em lote se aplicável\n"
                 "• *'Confirmar todos os pedidos'* — envia todos para fila individual\n"
@@ -536,7 +536,7 @@ def rule_based_response(user_message: str, context_data: dict) -> tuple[list, st
                 "• *'Ver fila'* — fila de missões atual"
             )
         return [], (
-            "Olá! Sou o assistente do robô Camaro 🤖\n\n"
+            "Olá! Sou o assistente do robô Camaro.\n\n"
             "Você pode pedir múltiplos componentes de uma vez, ex:\n"
             "• *'Adicione 2 ESP32 e 1 relé'*\n"
             "• *'Abrir carrinho'*\n"

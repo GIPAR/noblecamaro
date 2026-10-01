@@ -16,6 +16,28 @@ tempo.
 2 - Contribuições novas devem ser feitas fora da branch principal (crie
 uma branch própria ou use a branch "Desenvolvimento").
 
+## 0 - Especificações Técnicas do Robô 📏
+
+Dimensões e parâmetros atuais do Camaro usados na simulação:
+
+| Parâmetro | Valor |
+|-----------|-------|
+| Base (distância entre eixos) | 0.71 m (eixo dianteiro x=0.375, traseiro x=-0.335) |
+| Bitola (largura entre rodas) | 0.46 m |
+| **Roda real (`rodanova.glb`)** | **diâmetro 0.22 m (raio 0.11), largura 0.072 m** — eixos das rodas em z=0.11 |
+| **Chassi — collision box** | **0.6 m x 0.46 m x 0.15 m** |
+| **Chassi — malha real (`camaronovo.glb`)** | **1.2 m x 0.66 m x 0.36 m** (escala 0.0012, visual em z=0.18) |
+| **LiDAR `lidarA2`** | **posição (0.55, 0, 0.06) m** sobre o `base_link` (colado na parte de baixo do chassi, na frente, na altura das rodas) |
+| Limite de esterço (steering) | ±0.6 rad |
+| Raio mínimo de curvatura | 1.04 m |
+| Velocidade máxima (plugin) | ±5 m/s |
+
+> ⚠️ **Atenção ao LiDAR:** a malha GLB é maior que o collision box. Para
+> o LiDAR não "enxergar" o próprio robô (chassi/parede interna da malha),
+> o filtro `laser_filter.yaml` define um polígono que contorna a silhueta
+> real (1.2m de comprimento) e remove esses pontos do `/scan_filtered`.
+> O LiDAR fica embaixo da frente, próximo do chão, como no robô físico.
+
 ## 1 - Primeiros Passos 📋
 
 É necessário instalar bibliotecas e diferentes dependências para o
@@ -92,10 +114,14 @@ terminal***.
 
 Estes são os comandos básicos para rodar a simulação via terminal.
 Primeiro, suba o mundo do Gazebo (o corredor com as salas, usado para os
-testes de navegação e entrega):
+testes de navegação e entrega). Há dois perfis: `corridor_rooms_light.sdf`
+(só paredes e checkpoints, ideal pra treinar movimentação) e
+`corridor_rooms_high.sdf` (cenário completo, com pessoas e obstáculos):
 
 ```shell
-ros2 launch camaro_description gazebo.launch.py world:=corridor_rooms
+ros2 launch camaro_description gazebo.launch.py world:=corridor_rooms_light.sdf
+# ou o perfil completo:
+ros2 launch camaro_description gazebo.launch.py world:=corridor_rooms_high.sdf
 ```
 
 Em outro terminal, se quiser abrir o robô junto com o RViz2 para
@@ -121,6 +147,10 @@ ros2 run camaro_description camaro_teleop.py
 Esse script usa **pygame** para capturar as teclas/joystick, então é
 necessário ter uma janela do pygame em foco para os comandos serem
 reconhecidos (não basta digitar direto no terminal).
+
+> 💡 O teleoperador publica no tópico **`/cmd_vel`** (mesmo tópico que o
+> bridge do Gazebo consome via remap). O tópico pode ser alterado em
+> tempo real pela interface (clique no campo "Tópico" no rodapé).
 
 ### 2.3 - Inicializando o SLAM
 
@@ -158,6 +188,16 @@ SLAM, passando o mapa direto:
 ros2 launch camaro_description nav2.launch.py map_file:=/coloque/o/caminho/do/arquivo/aqui/nome_do_seu_mapa.yaml
 ```
 
+O perfil do Nav2 acompanha o mundo escolhido, pelo argumento `params_file`:
+
+- `nav2_params_light.yaml` (padrão): mais leve, para o `corridor_rooms_light`.
+- `nav2_params_high.yaml`: mais pesado (costmaps e MPPI maiores, mais
+  partículas do AMCL), para o `corridor_rooms_high`.
+
+```shell
+ros2 launch camaro_description nav2.launch.py params_file:=nav2_params_high.yaml
+```
+
 Nota: o Nav2 espera que a localização inicial do robô seja a coordenada
 (0, 0) do mapa. Se não for, publique a pose inicial pelo "2D Pose
 Estimate" no RViz2, ou mova o robô manualmente por um tempo até ele se
@@ -174,6 +214,8 @@ do contexto — por exemplo, encolhe em corredores apertados ou portas
 estreitas, e volta ao tamanho normal em espaços abertos. Isso evita que
 o planejador rejeite caminhos válidos só porque o footprint "cheio" não
 caberia, mesmo quando o robô conseguiria passar com folga real.
+(Implementado pelo nó C++ `dynamic_footprint_node`, que recalcula o
+polígono com base no ângulo de esterço.)
 
 **Recovery inteligente:** quando o Camaro fica preso ou o planejador não
 encontra caminho (situação comum com Ackermann, já que ele não consegue
@@ -182,12 +224,29 @@ mesma sequência genérica de recovery do Nav2 (girar no lugar, andar para
 trás), o comportamento de recovery é adaptado à cinemática Ackermann —
 priorizando manobras que o robô realmente consegue executar (marcha à
 ré em linha reta, pequenos ajustes de ângulo de esterçamento) antes de
-escalar para comportamentos mais agressivos.
+escalar para comportamentos mais agressivos. (Implementado pelo plugin
+C++ `camaro_nav/AckermannRecovery`.)
 
-> Se quiser, dá pra detalhar aqui os parâmetros exatos usados nos
-> arquivos de configuração do Nav2 (`nav2_params.yaml`) para o footprint
-> dinâmico e os plugins de recovery — me manda o arquivo de config que eu
-> incluo os valores reais no tutorial.
+### 2.6 - Filtro do LiDAR (não enxergar o próprio robô) 🔍
+
+O `nav2.launch.py` sobe o nó `laser_filters` (`scan_to_scan_filter_chain`) que
+aplica um `LaserScanPolygonFilter` no tópico `/scan` e publica em
+`/scan_filtered`.
+
+- **`polygon_frame`:** `lidarA2` (mesmo frame do scan)
+- **Polígono:** contorna a silhueta do robô (malha 1.2 m x 0.66 m) com
+  "saliências" na região das rodas dianteiras para cobrir o esterço máximo
+  (±0.6 rad) — robusto à direção Ackermann
+- **`polygon_padding`:** 0.05 m de margem extra ao redor
+- **`invert: false`** → remove pontos **dentro** do polígono
+- **Efeito:** remove só o q o robô ocupa (a "silhueta") — o restante do scan
+  (frente, laterais, entorno próximo) fica intacto
+- O **RViz** (`nav2.rviz`) exibe o tópico **`/scan_filtered`** (filtrado) —
+  não o `/scan` cru
+
+> ⚠️ Se os pontos do robô voltarem a aparecer no RViz, verifique se o nome
+> do nó do filtro está como **`scan_to_scan_filter_chain`** (a chave do YAML
+> precisa bater com o nome do nó para os parâmetros serem lidos).
 
 ## 3 - Encerrando a Simulação
 

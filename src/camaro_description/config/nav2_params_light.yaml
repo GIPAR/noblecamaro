@@ -45,9 +45,9 @@ controller_server:
 
     FollowPath:
       plugin: "nav2_mppi_controller::MPPIController"
-      time_steps: 72
+      time_steps: 40
       model_dt: 0.05
-      batch_size: 2000
+      batch_size: 500
       ax_max: 3.0
       ax_min: -3.0
       ay_max: 3.0
@@ -135,13 +135,13 @@ local_costmap:
   local_costmap:
     ros__parameters:
       use_sim_time: true
-      update_frequency: 10.0
-      publish_frequency: 5.0
+      update_frequency: 5.0
+      publish_frequency: 2.0
       global_frame: odom
       robot_base_frame: base_link
       rolling_window: true
-      width: 6
-      height: 6
+      width: 3
+      height: 3
       resolution: 0.05
       footprint: "[[0.60, 0.35], [0.60, -0.35], [-0.60, -0.35], [-0.60, 0.35]]"
       plugins: ["voxel_layer", "inflation_layer"]
@@ -175,8 +175,8 @@ global_costmap:
   global_costmap:
     ros__parameters:
       use_sim_time: true
-      update_frequency: 2.0
-      publish_frequency: 2.0
+      update_frequency: 1.0
+      publish_frequency: 1.0
       global_frame: map
       robot_base_frame: base_link
       resolution: 0.05
@@ -225,7 +225,7 @@ planner_server:
       downsampling_factor: 1
       allow_unknown: true
       max_iterations: 1000000
-      max_planning_time: 10.0
+      max_planning_time: 3.0
       motion_model_for_search: "REEDS_SHEPP"   # permite planejar ré
       minimum_turning_radius: 1.04             # raio mínimo real do Camaro
       reverse_penalty: 2.0                     # penaliza ré (prefere frente)
@@ -233,7 +233,7 @@ planner_server:
       non_straight_penalty: 1.05
       cost_penalty: 2.0
       retrospective_penalty: 0.015
-      lookup_table_size: 20.0
+      lookup_table_size: 5.0
       cache_obstacle_heuristic: true
       smooth_path: true
       smoother:
@@ -378,8 +378,8 @@ amcl:
     alpha3: 0.2
     alpha4: 0.2
     alpha5: 0.2
-    max_particles: 5000
-    min_particles: 1000
+    max_particles: 1000
+    min_particles: 200
     update_min_a: 0.2
     update_min_d: 0.25
     transform_tolerance: 0.5

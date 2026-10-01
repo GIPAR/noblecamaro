@@ -47,7 +47,7 @@ function loadChatHistory() {
 
   if (history.length === 0) {
     const defaultMsg = {
-      message: "Olá! Eu sou o assistente do robô Camaro 🤖\nComo posso ajudar você no seu pedido ou telemetria hoje?",
+      message: "Olá! Eu sou o assistente do robô Camaro.\nComo posso ajudar você no seu pedido ou telemetria hoje?",
       sender: "bot",
       actionBadge: null
     };
@@ -71,7 +71,7 @@ function renderChatMessageElement(message, sender = "bot", actionBadge = null) {
   if (actionBadge) {
     const badgeDiv = document.createElement("div");
     badgeDiv.style.cssText = "font-size: 11px; font-weight: 700; color: var(--accent-color); margin-bottom: 6px; display: flex; align-items: center; gap: 4px; text-transform: uppercase; letter-spacing: 0.05em;";
-    badgeDiv.innerHTML = `<span>⚡</span> <span>${actionBadge}</span>`;
+    badgeDiv.innerHTML = `<span>[${actionBadge}]</span>`;
     msgDiv.appendChild(badgeDiv);
   }
 
@@ -119,9 +119,9 @@ document.addEventListener("click", (e) => {
   if (e.target && (e.target.id === "btn-clear-chat" || e.target.closest("#btn-clear-chat"))) {
     e.preventDefault();
     e.stopPropagation();
-    if (confirm("Deseja limpar as mensagens deste chat?")) {
-      clearChatHistory();
-    }
+    confirmDialog("Deseja limpar as mensagens deste chat?", "Limpar").then((ok) => {
+      if (ok) clearChatHistory();
+    });
     return;
   }
 
@@ -350,7 +350,7 @@ function processLocalLLMOrchestrator(userInput) {
   if (targetRoomOnly && (q.includes("escolher") || q.includes("selecionar") || q.includes("mudar") || q.includes("definir") || q.includes("trocar") || q.includes("estou na") || q.startsWith("sala "))) {
     if (!findProduct(q) && !q.includes("faz o pedido") && !q.includes("confirmar pedido")) {
       actions.push({ type: "set_destination", destination: targetRoomOnly });
-      return { reply: `📍 Local de entrega definido para a **${targetRoomOnly}**! Você pode adicionar mais componentes ou dizer 'confirmar pedido'.`, actions };
+      return { reply: `Local de entrega definido para a **${targetRoomOnly}**! Você pode adicionar mais componentes ou dizer 'confirmar pedido'.`, actions };
     }
   }
 
@@ -366,18 +366,18 @@ function processLocalLLMOrchestrator(userInput) {
 
     if (telemetry.status === "delivering") {
       actions.push({ type: "show_tracking" });
-      reply = `📍 O Camaro está em movimento no corredor navegando em direção à ${destination}!\n\n• Velocidade: ${telemetry.speed.toFixed(1)} km/h\n• Distância restante: ${telemetry.distance}m\n• Tempo estimado de chegada (ETA): ${telemetry.eta}s\n\nVocê pode ver a posição dele em tempo real no mapa da tela de acompanhamento.`;
+      reply = `O Camaro está em movimento no corredor navegando em direção à ${destination}!\n\n• Velocidade: ${telemetry.speed.toFixed(1)} km/h\n• Distância restante: ${telemetry.distance}m\n• Tempo estimado de chegada (ETA): ${telemetry.eta}s\n\nVocê pode ver a posição dele em tempo real no mapa da tela de acompanhamento.`;
       return { reply, actions };
     } else if (telemetry.status === "returning") {
       actions.push({ type: "show_tracking" });
-      reply = `🔄 A entrega na ${destination} foi realizada com sucesso! O Camaro está agora no caminho de volta pelo corredor em direção à Doca Base.\n\n• Velocidade de retorno: ${telemetry.speed.toFixed(1)} km/h\n• Distância até a base: ${telemetry.distance}m`;
+      reply = `A entrega na ${destination} foi realizada com sucesso! O Camaro está agora no caminho de volta pelo corredor em direção à Doca Base.\n\n• Velocidade de retorno: ${telemetry.speed.toFixed(1)} km/h\n• Distância até a base: ${telemetry.distance}m`;
       return { reply, actions };
     } else if (telemetry.status === "preparing") {
       actions.push({ type: "show_tracking" });
-      reply = `📦 O Camaro está ancorado na Doca Base sendo preparado e carregado com os componentes. A partida pelo corredor iniciará em poucos segundos.`;
+      reply = `O Camaro está ancorado na Doca Base sendo preparado e carregado com os componentes. A partida pelo corredor iniciará em poucos segundos.`;
       return { reply, actions };
     } else if (telemetry.status === "charging" || telemetry.status === "idle") {
-      reply = `⚡ O Camaro está atualmente acoplado na Doca Base aguardando novas missões de entrega. Bateria em ${telemetry.battery.toFixed(0)}%. Posso adicionar componentes e enviar para sua sala quando quiser!`;
+      reply = `O Camaro está atualmente acoplado na Doca Base aguardando novas missões de entrega. Bateria em ${telemetry.battery.toFixed(0)}%. Posso adicionar componentes e enviar para sua sala quando quiser!`;
       return { reply, actions };
     }
   }
@@ -421,7 +421,7 @@ function processLocalLLMOrchestrator(userInput) {
         timing: "now",
         notes: "Pedido via Chat AI"
       });
-      reply = `✅ Pedido confirmado com sucesso! Adicionei ${quantity}x ${matchedProduct.name} e enviei a solicitação para a ${room}.\n\nO Camaro iniciará o trajeto pelo corredor assim que o operador confirmar o envio.`;
+      reply = `Pedido confirmado com sucesso! Adicionei ${quantity}x ${matchedProduct.name} e enviei a solicitação para a ${room}.\n\nO Camaro iniciará o trajeto pelo corredor assim que o operador confirmar o envio.`;
       return { reply, actions };
     } else {
       actions.push({
@@ -430,7 +430,7 @@ function processLocalLLMOrchestrator(userInput) {
         product_name: matchedProduct.name,
         quantity: quantity
       });
-      reply = `🛒 Adicionei ${quantity}x ${matchedProduct.name} ao seu carrinho!\n\nVocê pode me dizer 'escolher Sala B' ou 'confirmar pedido'.`;
+      reply = `Adicionei ${quantity}x ${matchedProduct.name} ao seu carrinho!\n\nVocê pode me dizer 'escolher Sala B' ou 'confirmar pedido'.`;
       return { reply, actions };
     }
   }
@@ -451,7 +451,7 @@ function processLocalLLMOrchestrator(userInput) {
       timing: "now",
       notes: "Confirmado via Chat AI"
     });
-    return { reply: `✅ Confirmando o envio do seu carrinho para a ${room}! Alternando para a tela de acompanhamento.`, actions };
+    return { reply: `Confirmando o envio do seu carrinho para a ${room}! Alternando para a tela de acompanhamento.`, actions };
   }
 
   // 6. Order Status Query
@@ -491,13 +491,13 @@ function processLocalLLMOrchestrator(userInput) {
   // 7. Stock Query
   if (q.includes("estoque") || q.includes("componentes") || q.includes("produtos") || q.includes("o que tem") || q.includes("catalogo")) {
     const list = products.map(p => `• ${p.name}: ${p.stock > 0 ? p.stock + " un disponíveis" : "Esgotado"}`).join("\n");
-    reply = `📦 Componentes em estoque na estação base:\n\n${list}\n\nPara solicitar, você pode me dizer: 'adicione 2 ESP32' e depois 'escolher Sala B'.`;
+    reply = `Componentes em estoque na estação base:\n\n${list}\n\nPara solicitar, você pode me dizer: 'adicione 2 ESP32' e depois 'escolher Sala B'.`;
     return { reply, actions: [] };
   }
 
   // 8. Greetings
   if (q.includes("olá") || q.includes("oi") || q.includes("bom dia") || q.includes("boa tarde") || q.includes("boa noite") || q.includes("ola") || q.includes("help") || q.includes("ajuda")) {
-    reply = "Olá! Eu sou o assistente e orquestrador autônomo do robô Camaro 🤖\n\nVocê pode clicar nos atalhos acima ou me pedir comandos como:\n• *'Adicione 2 ESP32'*\n• *'Abrir carrinho'*\n• *'Escolher Sala B'*\n• *'Confirmar pedido'*\n• *'Acompanhar pedido'*\n\nComo posso te ajudar?";
+    reply = "Olá! Eu sou o assistente e orquestrador autônomo do robô Camaro.\n\nVocê pode clicar nos atalhos acima ou me pedir comandos como:\n• *'Adicione 2 ESP32'*\n• *'Abrir carrinho'*\n• *'Escolher Sala B'*\n• *'Confirmar pedido'*\n• *'Acompanhar pedido'*\n\nComo posso te ajudar?";
     return { reply, actions: [] };
   }
 
@@ -548,13 +548,13 @@ function addToCart(productId, quantity) {
   if (!product) return;
 
   if (product.stock < quantity) {
-    alert("Quantidade solicitada excede o estoque disponível!");
+    showToast("Quantidade solicitada excede o estoque disponível!", "error");
     return;
   }
 
   const success = addToCartSilently(product.id, quantity);
   if (success) {
-    alert(`${quantity}x ${product.name} adicionado(s) ao carrinho!`);
+    showToast(`${quantity}x ${product.name} adicionado(s) ao carrinho!`, "success");
   }
 }
 
@@ -570,7 +570,7 @@ function updateCartQuantity(productId, delta) {
   }
 
   if (newQty > product.stock) {
-    alert("Estoque máximo atingido!");
+    showToast("Estoque máximo atingido!", "error");
     return;
   }
 
@@ -596,7 +596,7 @@ function clearCart() {
 
 function checkoutCart() {
   if (currentCart.length === 0) {
-    alert("Seu carrinho está vazio!");
+    showToast("Seu carrinho está vazio!", "error");
     return;
   }
 
@@ -651,7 +651,7 @@ function checkoutCart() {
               if (pos > 0) {
                 const telemetry = getTelemetry();
                 if (telemetry.currentOrderId && telemetry.currentOrderId !== createdOrder.id) {
-                  alert(`Seu pedido foi recebido e enfileirado na posição ${pos} do Camaro!`);
+                  showToast(`Seu pedido foi recebido e enfileirado na posição ${pos} do Camaro!`, "success");
                 }
               }
             }
@@ -921,24 +921,24 @@ function renderClientUI() {
       } else if (order.status === "delivered") {
         detailsHTML = `
           <div class="detail-item">
-            <div class="detail-label">Entregue ✅</div>
+            <div class="detail-label">Entregue</div>
             <div class="detail-value">Itens entregues no destino com sucesso!</div>
           </div>
           <div class="detail-item">
             <div class="detail-label">Avaliação da Entrega</div>
             <div class="detail-value">
               <div id="feedback-section-${order.id}">
-                <div style="margin-bottom: 8px; font-size: 12px; color: var(--text-secondary);">Como foi a sua experiência? (1 a 5 estrelas)</div>
-                <div class="star-rating-row" style="display: flex; gap: 4px; margin-bottom: 10px;">
+                <div style="margin-bottom: 8px; font-size: 12px; color: var(--text-secondary);">Como foi a sua experiência? (1 a 5)</div>
+                <div class="star-rating-row" style="display: flex; gap: 6px; margin-bottom: 10px;">
                   ${[1,2,3,4,5].map(n => `
                     <button
                       class="star-btn"
                       data-order="${order.id}"
                       data-star="${n}"
                       onclick="handleStarClick('${order.id}', ${n})"
-                      title="${n} estrela${n>1?'s':''}"
-                      style="font-size: 22px; background: none; border: none; cursor: pointer; color: var(--text-muted); transition: color 0.15s; padding: 2px;"
-                    >☆</button>
+                      title="${n} de 5"
+                      style="font-size: 13px; font-weight: 700; background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 4px; cursor: pointer; color: var(--text-secondary); padding: 4px 10px; transition: all 0.15s;"
+                    >${n}</button>
                   `).join("")}
                 </div>
                 <div id="feedback-comment-${order.id}" style="display: none;">
@@ -1137,11 +1137,13 @@ function handleStarClick(orderId, rating) {
     const buttons = section.querySelectorAll(".star-btn");
     buttons.forEach((btn, index) => {
       if (index < rating) {
-        btn.textContent = "★";
-        btn.style.color = "var(--accent-color)";
+        btn.style.borderColor = "var(--accent-color)";
+        btn.style.color = "#000";
+        btn.style.backgroundColor = "var(--accent-color)";
       } else {
-        btn.textContent = "☆";
-        btn.style.color = "var(--text-muted)";
+        btn.style.borderColor = "var(--border-color)";
+        btn.style.color = "var(--text-secondary)";
+        btn.style.backgroundColor = "var(--bg-tertiary)";
       }
     });
   }
@@ -1161,7 +1163,7 @@ async function submitFeedback(orderId) {
     try {
       const res = await apiSubmitFeedback(orderId, rating, comment);
       if (res && res.ok) {
-        alert(res.message || "Feedback enviado com sucesso!");
+        showToast(res.message || "Feedback enviado com sucesso!", "success");
       }
     } catch (e) {
       console.warn("Could not submit feedback to backend:", e.message);

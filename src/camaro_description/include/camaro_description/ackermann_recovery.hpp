@@ -29,8 +29,10 @@ namespace camaro_nav
  *  4. Publica cmd_vel_nav em malha fechada até completar a manobra
  *     ou atingir timeout
  *
- * Parâmetros Nav2 (behavior_server/ros__parameters):
- *   ackermann_recovery:
+ * Parâmetros Nav2 (behavior_server/ros__parameters), sob o namespace do
+ * próprio plugin (behavior_name_, ou seja, a chave usada em behavior_plugins —
+ * ex.: "backup"):
+ *   <behavior_name>:
  *     wheelbase            = 0.71
  *     max_steering_angle   = 0.6
  *     robot_half_width     = 0.23

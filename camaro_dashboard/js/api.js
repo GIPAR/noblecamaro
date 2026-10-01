@@ -1,9 +1,10 @@
 /**
  * api.js — REST client for Camaro Dashboard backend.
- * All communication with http://localhost:5000/api/...
+ * All communication goes through the relative path /api/... so the site
+ * works from any host (localhost, LAN IP, hostname) that serves it.
  */
 
-const API_BASE = "http://localhost:5000/api";
+const API_BASE = "/api";
 
 // ─── Session ───────────────────────────────────────────────────────────────
 function getToken() {
@@ -159,4 +160,73 @@ async function apiSubmitFeedback(orderId, rating, comment = "") {
     method: "POST",
     body: { rating, comment },
   });
+}
+
+// ─── Robot Status API (ROS2 / Gazebo) ───────────────────────────────────────
+async function apiGetRobotStatus() {
+  return await apiFetch("/robot/status");
+}
+
+// ─── Toasts & confirmações (substitui alert/confirm nativos) ────────────────
+function ensureToastContainer() {
+  let box = document.getElementById("camaro-toasts");
+  if (!box) {
+    box = document.createElement("div");
+    box.id = "camaro-toasts";
+    box.className = "toast-container";
+    document.body.appendChild(box);
+  }
+  return box;
+}
+
+function showToast(message, type = "info", ms = 4000) {
+  const box = ensureToastContainer();
+  const el = document.createElement("div");
+  el.className = `toast toast-${type}`;
+  el.textContent = message;
+  el.onclick = () => el.remove();
+  box.appendChild(el);
+  setTimeout(() => {
+    el.classList.add("toast-out");
+    setTimeout(() => el.remove(), 300);
+  }, ms);
+}
+
+// Diálogo de confirmação não-bloqueante (estilo do site). Resolve true/false.
+function confirmDialog(message, okLabel = "Confirmar") {
+  return new Promise((resolve) => {
+    const overlay = document.createElement("div");
+    overlay.className = "modal-overlay";
+    overlay.innerHTML = `
+      <div class="modal-card animate-fade-in" style="max-width: 380px;">
+        <div class="modal-body" style="font-size: 14px; line-height: 1.6;">${message}</div>
+        <div class="modal-footer flex-between" style="border-top: 1px solid var(--border-color); padding: 12px 20px; background-color: var(--bg-tertiary);">
+          <button class="btn" data-act="no" style="padding: 8px 16px;">Cancelar</button>
+          <button class="btn btn-primary" data-act="yes" style="padding: 8px 16px;">${okLabel}</button>
+        </div>
+      </div>`;
+    const done = (val) => {
+      overlay.remove();
+      resolve(val);
+    };
+    overlay.querySelector('[data-act="yes"]').onclick = () => done(true);
+    overlay.querySelector('[data-act="no"]').onclick = () => done(false);
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) done(false);
+    });
+    document.body.appendChild(overlay);
+  });
+}
+
+// ─── ZED Camera API (via Flask proxy → web_video_server) ────────────────────
+async function apiGetCameraStatus() {
+  return await apiFetch("/camera/status");
+}
+
+function zedStreamUrl(topic) {
+  return `/api/camera/stream?topic=${encodeURIComponent(topic)}`;
+}
+
+function zedSnapshotUrl(topic) {
+  return `/api/camera/snapshot?topic=${encodeURIComponent(topic)}`;
 }

@@ -14,6 +14,8 @@ DynamicFootprintNode::DynamicFootprintNode(const rclcpp::NodeOptions & options)
   this->declare_parameter("safety_margin",      0.05);
   this->declare_parameter("max_steering_angle", 0.6);
   this->declare_parameter("publish_rate_hz",    10.0);
+  this->declare_parameter("local_footprint_topic",  std::string("/local_costmap/footprint"));
+  this->declare_parameter("global_footprint_topic", std::string("/global_costmap/footprint"));
 
   wheelbase_          = this->get_parameter("wheelbase").as_double();
   half_width_         = this->get_parameter("half_width").as_double();
@@ -22,6 +24,8 @@ DynamicFootprintNode::DynamicFootprintNode(const rclcpp::NodeOptions & options)
   safety_margin_      = this->get_parameter("safety_margin").as_double();
   max_steering_angle_ = this->get_parameter("max_steering_angle").as_double();
   publish_rate_hz_    = this->get_parameter("publish_rate_hz").as_double();
+  local_footprint_topic_  = this->get_parameter("local_footprint_topic").as_string();
+  global_footprint_topic_ = this->get_parameter("global_footprint_topic").as_string();
 
   RCLCPP_INFO(get_logger(),
     "DynamicFootprint: wheelbase=%.2f half_width=%.2f front=%.2f rear=%.2f margin=%.2f",
@@ -32,9 +36,16 @@ DynamicFootprintNode::DynamicFootprintNode(const rclcpp::NodeOptions & options)
     "/joint_states", 10,
     std::bind(&DynamicFootprintNode::jointStateCallback, this, std::placeholders::_1));
 
-  // ── Publisher: footprint dinâmico ──
-  footprint_pub_ = this->create_publisher<geometry_msgs::msg::PolygonStamped>(
-    "/dynamic_footprint", rclcpp::QoS(10).transient_local());
+  // ── Publishers: footprint dinâmico (nav2_costmap_2d assina geometry_msgs/Polygon
+  //    no tópico relativo "footprint" dentro de cada namespace de costmap) ──
+  auto footprint_qos = rclcpp::QoS(10).transient_local();
+  local_footprint_pub_ = this->create_publisher<geometry_msgs::msg::Polygon>(
+    local_footprint_topic_, footprint_qos);
+  global_footprint_pub_ = this->create_publisher<geometry_msgs::msg::Polygon>(
+    global_footprint_topic_, footprint_qos);
+
+  RCLCPP_INFO(get_logger(), "DynamicFootprint publicando em: %s, %s",
+    local_footprint_topic_.c_str(), global_footprint_topic_.c_str());
 
   // ── Timer de publicação ──
   auto period = std::chrono::duration<double>(1.0 / publish_rate_hz_);
@@ -84,7 +95,8 @@ void DynamicFootprintNode::jointStateCallback(
 void DynamicFootprintNode::timerCallback()
 {
   auto polygon = computeFootprint(current_steering_angle_);
-  footprint_pub_->publish(polygon);
+  local_footprint_pub_->publish(polygon);
+  global_footprint_pub_->publish(polygon);
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -96,12 +108,10 @@ void DynamicFootprintNode::timerCallback()
 //     pelo overhang calculado geometricamente pelo arco Ackermann
 //     e expande a quina traseira interna (efeito "tail swing")
 // ─────────────────────────────────────────────────────────────
-geometry_msgs::msg::PolygonStamped DynamicFootprintNode::computeFootprint(
+geometry_msgs::msg::Polygon DynamicFootprintNode::computeFootprint(
   double steering_angle)
 {
-  geometry_msgs::msg::PolygonStamped polygon;
-  polygon.header.stamp    = this->now();
-  polygon.header.frame_id = "base_link";
+  geometry_msgs::msg::Polygon polygon;
 
   const double margin = safety_margin_;
   const double front  = half_length_front_ + margin;
@@ -152,7 +162,7 @@ geometry_msgs::msg::PolygonStamped DynamicFootprintNode::computeFootprint(
   rl.y = width + (steering_angle < 0 ? tail_swing : 0.0);
   rl.z = 0.0;
 
-  polygon.polygon.points = {fl, fr, rr, rl};
+  polygon.points = {fl, fr, rr, rl};
 
   return polygon;
 }
