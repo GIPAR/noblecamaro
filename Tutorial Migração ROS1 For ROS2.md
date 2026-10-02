@@ -82,9 +82,9 @@ Ingredientes que o plugin Ackermann precisa (NOVA FORMA DE CONTROLAR O CAMARO PE
 
 🍰 Quais são as 4 juntas das rodas → pra saber quais rodas girar
 🍰 Quais são as 2 juntas de direção → pra saber quais rodas virar
-🍰 Wheel base → distância entre eixo dianteiro e traseiro (0.6m)
+🍰 Wheel base → distância entre eixo dianteiro e traseiro (0.71m)
 🍰 Wheel separation → distância entre roda esquerda e direita (0.46m)
-🍰 Wheel radius → raio da roda (0.1m)
+🍰 Wheel radius → raio da roda real (0.11m, diâmetro 0.22m)
 
 O plugin faz o resto sozinho:
 
